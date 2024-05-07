@@ -3,6 +3,8 @@ const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer')
 
+let timerIntervalId;
+
 quoteInputElement.addEventListener('input', () => {
     const arrayQuote = quoteDisplayElement.querySelectorAll('span')
     const arrayValue = quoteInputElement.value.split('')
@@ -24,7 +26,11 @@ quoteInputElement.addEventListener('input', () => {
             correct = false
         }
     })
-    if (correct) renderNewQuote()
+    if (correct) {
+        clearInterval(timerIntervalId);
+        renderElapsedTime();
+        setTimeout(renderNewQuote, 2500);
+    }
 })
 function getRandomQuote() {
     return fetch(RANDOM_QUOTE_API_URL)
@@ -44,17 +50,22 @@ async function renderNewQuote(){
     startTimer()
 }
 
-let startTime
+
 function startTimer() {
     timerElement.innerText = 0
     startTime = new Date()
-    setInterval(() => {
-        timer.innerText = getTimerTime()
+    timerIntervalId = setInterval(() => {
+        timerElement.innerText = getTimerTime()
     }, 1000)
 }
 
 function getTimerTime() {
     return Math.floor((new Date() - startTime) / 1000)
+}
+
+function renderElapsedTime() {
+    const elapsedTime = getTimerTime();
+    timerElement.innerText = `Elapsed Time: ${elapsedTime} seconds`;
 }
 
 renderNewQuote()
