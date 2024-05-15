@@ -16,6 +16,7 @@ body, .quote-input {
 }
 
 .container {
+    position: relative; /* Added */
     background-color: rgb(255, 165, 215);
     padding: 1rem;
     border-radius: .5rem;
@@ -62,4 +63,13 @@ body, .quote-input {
 .incorrect {
     color: #ff234a;
     text-decoration: underline;
+}
+
+.shuffle {
+    position: absolute;
+    bottom: 15rem; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    color: black;
+    background-color: rgb(255, 165, 215);
 }
