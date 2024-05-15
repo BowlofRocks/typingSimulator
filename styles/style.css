@@ -7,25 +7,28 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: black;
+    background-color: rgb(6, 4, 45);
+
+
 }
 body, .quote-input {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .container {
-    background-color: #F0DB4F;
+    background-color: rgb(255, 165, 215);
     padding: 1rem;
     border-radius: .5rem;
     width: 700px;
     max-width: 90%;
+    border: 5px solid rgb(142, 142, 234);
 }
 
 .timer {
     position: absolute;
     top: 2rem;
     font-size: 3rem;
-    color: #F0DB4F;
+    color: rgb(152, 224, 254);
     font-weight: bold;
 }
 
@@ -37,7 +40,7 @@ body, .quote-input {
 
 .quote-input {
     background-color: transparent;
-    border: 2px solid #A1922E;
+    border: 2px solid rgb(6, 4, 45);
     outline: none;
     width: 100%;
     height: 8rem;
@@ -53,10 +56,10 @@ body, .quote-input {
 }
 
 .correct {
-    color: green;
+    color: rgb(253, 234, 183);
 }
 
 .incorrect {
-    color: red;
+    color: #ff234a;
     text-decoration: underline;
 }
