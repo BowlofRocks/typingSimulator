@@ -82,5 +82,3 @@ replayButton.addEventListener('click', renderNewQuote);
 renderNewQuote()
 
 
-
-
