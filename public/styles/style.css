@@ -32,22 +32,6 @@ body, .quote-input {
     font-weight: bold;
 }
 
-.cpm {
-    position: absolute;
-    top: 6rem;
-    font-size: 3rem;
-    color: rgb(152, 224, 254);
-    font-weight: bold;
-}
-
-.wpm {
-    position: absolute;
-    top: 10rem;
-    font-size: 3rem;
-    color: rgb(152, 224, 254);
-    font-weight: bold;
-}
-
 .quote-display {
     margin-bottom: 1rem;
     margin-left: calc(1rem + 2px);
