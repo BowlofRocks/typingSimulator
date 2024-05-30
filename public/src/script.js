@@ -5,12 +5,14 @@ const timerElement = document.getElementById('timer')
 const replayButton = document.getElementById('replayButton')
 const cpmElement = document.getElementById('cpm')
 const wpmElement = document.getElementById('wpm');
+const keyboardContainer = document.getElementById('keyboard');
 
 let timerIntervalId;
 let timerStarted = false;
 let startTime;
 let phraseCharacterCount = 0;
 let wordCount = 0;
+let keyFrequencies = {};
 
 quoteInputElement.addEventListener('input', () => {
     if (!timerStarted) {
@@ -42,11 +44,12 @@ quoteInputElement.addEventListener('input', () => {
         renderElapsedTime();
         calculateCPM();
         calculateWPM();
+        updateKeyboardColors(); // Update keyboard colors
         setTimeout(() => {
             cpmElement.innerText = '';
             wpmElement.innerText = '';
             renderNewQuote();
-        }, 2000);
+        }, 2500); // Amount of time before refreshing prompt
     }
 })
 function getRandomQuote() {
@@ -72,6 +75,7 @@ async function renderNewQuote(){
     timerStarted = false;
     clearInterval(timerIntervalId);
     timerElement.innerText = 0;
+    refreshHeatmap(); // Refresh heatmap when a new quote is rendered
 }
 
 function startTimer() {
@@ -104,6 +108,82 @@ function calculateWPM() {
     const wpm = Math.floor(wps * 60);
     wpmElement.innerText = `Words Per Minute: ${wpm}`;
 }
+
+// Function to update keyboard colors based on key frequencies
+function updateKeyboardColors() {
+    const maxFrequency = Math.max(...Object.values(keyFrequencies));
+    const minFrequency = Math.min(...Object.values(keyFrequencies));
+
+    // Iterate over keys and update colors based on frequencies
+    keys.flat().forEach(key => {
+        const keyElement = document.querySelector(`.key[data-key="${key}"]`);
+        if (keyElement) {
+            const frequency = keyFrequencies[key] || 0;
+            const normalizedFrequency = (frequency - minFrequency) / (maxFrequency - minFrequency);
+            // Calculate color directly and set as background color
+            keyElement.style.backgroundColor = frequency > 0 ? `rgb(${Math.round(255 * (1 - normalizedFrequency))}, ${Math.round(255 * normalizedFrequency)}, 0)` : '';
+        }
+    });
+}
+
+// Function to refresh heatmap
+function refreshHeatmap() {
+    // Clear key frequencies
+    keyFrequencies = {};
+    // Update keyboard colors
+    updateKeyboardColors();
+}
+
+// Array of keys
+const keys = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Delete'],
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '?']
+];
+
+keys.forEach(rowKeys => {
+    const rowElement = document.createElement('div');
+    rowElement.classList.add('key-row');
+    rowKeys.forEach(key => {
+        const keyElement = document.createElement('div');
+        keyElement.classList.add('key');
+        keyElement.textContent = key;
+        keyElement.dataset.key = key;
+        rowElement.appendChild(keyElement);
+    });
+    keyboardContainer.appendChild(rowElement);
+});
+
+document.addEventListener('keydown', event => {
+    const keyPressed = event.key.toUpperCase();
+    if (!keyFrequencies[keyPressed]) {
+        keyFrequencies[keyPressed] = 0;
+    }
+    keyFrequencies[keyPressed]++;
+    const keyElement = Array.from(document.querySelectorAll('.key')).find(
+        element => element.dataset.key === keyPressed ||
+            (event.key === ' ' && element.dataset.key === 'Space') ||
+            (event.key === 'Backspace' && element.dataset.key === 'Backspace') ||
+            (event.key === 'Delete' && element.dataset.key === 'Delete')
+    );
+    if (keyElement) {
+        keyElement.classList.add('highlight');
+    }
+});
+
+document.addEventListener('keyup', event => {
+    const keyPressed = event.key.toUpperCase();
+    const keyElement = Array.from(document.querySelectorAll('.key')).find(
+        element => element.dataset.key === keyPressed ||
+            (event.key === ' ' && element.dataset.key === 'Space') ||
+            (event.key === 'Backspace' && element.dataset.key === 'Backspace') ||
+            (event.key === 'Delete' && element.dataset.key === 'Delete')
+    );
+    if (keyElement) {
+        keyElement.classList.remove('highlight');
+    }
+});
 
 replayButton.addEventListener('click', renderNewQuote);
 

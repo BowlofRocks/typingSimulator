@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     display: flex;
     justify-content: center;
@@ -8,9 +9,8 @@ body {
     min-height: 100vh;
     margin: 0;
     background-color: rgb(6, 4, 45);
-
-
 }
+
 body, .quote-input {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -22,8 +22,30 @@ body, .quote-input {
     width: 700px;
     max-width: 90%;
     border: 5px solid rgb(142, 142, 234);
+    /* Add the following styles */
+    height: 14rem; /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrollbar if content exceeds height */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    position: relative; /* Set position relative for absolute positioning */
+    margin-bottom: 2rem; /* Add space below the container */
 }
 
+button#replayButton {
+    position: absolute;
+    top: 0; /* Adjust as needed */
+    right: 0; /* Align to the right */
+    margin-top: 1rem; /* Adjust vertical spacing */
+}
+
+button#signInBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 1rem;
+}
+    
 .timer {
     position: absolute;
     top: 2rem;
@@ -78,4 +100,41 @@ body, .quote-input {
 .incorrect {
     color: #ff234a;
     text-decoration: underline;
+}
+
+.keyboard {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    width: 700px;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 2rem; /* Add space above the keyboard */
+}
+
+.key {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    text-align: center;
+    line-height: 50px;
+    border: 1px solid #ffffff;
+    background-color: white;
+    cursor: pointer;
+    user-select: none;
+}
+
+.key-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.key.highlight {
+    background-color: yellow;
 }
