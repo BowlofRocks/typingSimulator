@@ -16,7 +16,7 @@ import {
     collection
 } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
 
-const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random';
+const RANDOM_QUOTE_API_URL = 'https://api.quotable.io/random';
 const quoteDisplayElement = document.getElementById('quoteDisplay');
 const quoteInputElement = document.getElementById('quoteInput');
 const timerElement = document.getElementById('timer');
