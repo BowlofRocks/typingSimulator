@@ -189,7 +189,7 @@ async function getLeaderboardData() {
     try {
         const usersData = await fetchAverageWPMData();
         const leaderboardData = usersData.map(user => ({
-            id: user.id,
+            nickname: user.nickname,
             averageWPM: user.averageWPM || 0 // Ensure there's a default value
         }));
 
@@ -214,7 +214,7 @@ async function renderLeaderboard() {
 
         leaderboardContainer.innerHTML = leaderboardData.map(user => `
             <div class="leaderboard-entry">
-                <span class="user-id">${user.id}</span>
+                <span class="user-id">${user.nickname}</span>
                 <span class="wpm-bar" style="width: ${user.averageWPM * 5}px;">${user.averageWPM} WPM</span>
             </div>
         `).join('');
@@ -236,6 +236,54 @@ onAuthStateChanged(auth, async (user) => {
     } else {
         console.log('No user is signed in');
     }
+});
+
+const changeNicknameButton = document.getElementById('changeNicknameButton');
+const popup = document.getElementById('popup');
+const closePopup = document.getElementById('closePopup');
+const nicknameForm = document.getElementById('nicknameForm');
+const newNicknameInput = document.getElementById('newNickname');
+
+// Show popup when the button is clicked
+changeNicknameButton.addEventListener('click', () => {
+    popup.style.display = 'block';
+});
+
+// Close popup when the close button is clicked
+closePopup.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
+
+// Close popup when clicking outside the popup
+window.addEventListener('click', (event) => {
+    if (event.target === popup) {
+        popup.style.display = 'none';
+    }
+});
+
+// Function to update the nickname for the authenticated user in Firestore
+async function updateNickname(newNickname) {
+    try {
+        const user = auth.currentUser; // Get the currently authenticated user
+        if (user) {
+            const userDocRef = doc(db, 'users', user.uid); // Reference to the user document
+            await updateDoc(userDocRef, { nickname: newNickname }); // Update the user document with the new nickname
+            console.log('Nickname updated successfully');
+        } else {
+            console.error('No user is currently authenticated');
+        }
+    } catch (error) {
+        console.error('Error updating nickname:', error);
+    }
+}
+
+// Handle form submission to update nickname
+nicknameForm.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent default form submission
+    const newNickname = newNicknameInput.value;
+    await updateNickname(newNickname); // Update the nickname
+    // Close the popup after submission
+    popup.style.display = 'none';
 });
 
 // Function to update keyboard colors based on key frequencies
