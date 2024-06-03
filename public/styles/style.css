@@ -138,3 +138,34 @@ button#signInBtn {
 .key.highlight {
     background-color: yellow;
 }
+
+.leaderboard-entry {
+     display: flex;
+     align-items: center;
+     margin-bottom: 10px;
+ }
+
+.user-id {
+    width: 100px;
+    font-weight: bold;
+}
+
+.wpm-bar {
+    background-color: rgba(75, 192, 192, 0.2);
+    border: 1px solid rgba(75, 192, 192, 1);
+    padding: 5px;
+    margin-left: 10px;
+}
+
+#leaderboard-section {
+    border: 2px solid #4bc0c0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+}
+
+#leaderboard-section h2 {
+    text-align: center;
+}
