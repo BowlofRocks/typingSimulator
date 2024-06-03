@@ -16,13 +16,13 @@ import {
     collection
 } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
 
-const RANDOM_QUOTE_API_URL = 'https://api.quotable.io/random'
-const quoteDisplayElement = document.getElementById('quoteDisplay')
-const quoteInputElement = document.getElementById('quoteInput')
-const timerElement = document.getElementById('timer')
-const replayButton = document.getElementById('replayButton')
-const cpmElement = document.getElementById('cpm')
+const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random';
+const quoteDisplayElement = document.getElementById('quoteDisplay');
+const quoteInputElement = document.getElementById('quoteInput');
+const timerElement = document.getElementById('timer');
+const replayButton = document.getElementById('replayButton');
 const wpmElement = document.getElementById('wpm');
+const accuracyElement = document.getElementById('accuracy');
 const keyboardContainer = document.getElementById('keyboard');
 
 let timerIntervalId;
@@ -31,65 +31,70 @@ let startTime;
 let phraseCharacterCount = 0;
 let wordCount = 0;
 let keyFrequencies = {};
+let incorrectCharacters = 0;
 
 quoteInputElement.addEventListener('input', () => {
     if (!timerStarted) {
         startTimer();
         timerStarted = true;
     }
-    const arrayQuote = quoteDisplayElement.querySelectorAll('span')
-    const arrayValue = quoteInputElement.value.split('')
-    let correct = true
+    const arrayQuote = quoteDisplayElement.querySelectorAll('span');
+    const arrayValue = quoteInputElement.value.split('');
+    let correct = true;
+
     arrayQuote.forEach((characterSpan, index) => {
-        const character = arrayValue[index]
+        const character = arrayValue[index];
         if (character == null) {
-            characterSpan.classList.remove('correct')
-            characterSpan.classList.remove('incorrect')
-            correct = false
+            characterSpan.classList.remove('correct');
+            characterSpan.classList.remove('incorrect');
+            correct = false;
+        } else if (character === characterSpan.innerText) {
+            characterSpan.classList.add('correct');
+            characterSpan.classList.remove('incorrect');
+        } else {
+            if (!characterSpan.classList.contains('incorrect')) {
+                incorrectCharacters++;
+            }
+            characterSpan.classList.remove('correct');
+            characterSpan.classList.add('incorrect');
+            correct = false;
         }
-        else if (character === characterSpan.innerText) {
-            characterSpan.classList.add('correct')
-            characterSpan.classList.remove('incorrect')
-        }
-        else{
-            characterSpan.classList.remove('correct')
-            characterSpan.classList.add('incorrect')
-            correct = false
-        }
-    })
+    });
+
     if (correct) {
         clearInterval(timerIntervalId);
         renderElapsedTime();
-        calculateCPM();
         calculateWPM();
-        updateKeyboardColors(); // Update keyboard colors
+        calculateAccuracy();
+        updateKeyboardColors();
         setTimeout(() => {
-            cpmElement.innerText = '';
-            wpmElement.innerText = '';
+            wpmElement.innerText = ''; // Clear wpm
+            accuracyElement.innerText = ''; // Clear accuracy
             renderNewQuote();
         }, 2500); // Amount of time before refreshing prompt
     }
-})
+});
+
 function getRandomQuote() {
     return fetch(RANDOM_QUOTE_API_URL)
         .then(response => response.json())
-        .then(data => data.content)
+        .then(data => data.content);
 }
 
-async function renderNewQuote(){
-    phraseCharacterCount = 0;
+async function renderNewQuote() {
     wordCount = 0;
-    const quote = await getRandomQuote()
-    const words = quote.split(' ')
+    incorrectCharacters = 0; // Reset the incorrect character count when rendering a new quote
+    const quote = await getRandomQuote();
+    const words = quote.split(' ');
     wordCount = words.length;
     phraseCharacterCount = quote.length;
-    quoteDisplayElement.innerHTML = ''
+    quoteDisplayElement.innerHTML = '';
     quote.split('').forEach(character => {
-        const characterSpan = document.createElement('span')
-        characterSpan.innerText = character
-        quoteDisplayElement.appendChild(characterSpan)
-    })
-    quoteInputElement.value = null
+        const characterSpan = document.createElement('span');
+        characterSpan.innerText = character;
+        quoteDisplayElement.appendChild(characterSpan);
+    });
+    quoteInputElement.value = null;
     timerStarted = false;
     clearInterval(timerIntervalId);
     timerElement.innerText = 0;
@@ -97,27 +102,20 @@ async function renderNewQuote(){
 }
 
 function startTimer() {
-    timerElement.innerText = 0
-    startTime = new Date()
+    timerElement.innerText = 0;
+    startTime = new Date();
     timerIntervalId = setInterval(() => {
-        timerElement.innerText = getTimerTime()
-    }, 1000)
+        timerElement.innerText = getTimerTime();
+    }, 1000);
 }
 
 function getTimerTime() {
-    return Math.floor((new Date() - startTime) / 1000)
+    return Math.floor((new Date() - startTime) / 1000);
 }
 
 function renderElapsedTime() {
     const elapsedTime = getTimerTime();
     timerElement.innerText = `Elapsed Time: ${elapsedTime} seconds`;
-}
-
-function calculateCPM() {
-    const elapsedTime = getTimerTime();
-    const cps = phraseCharacterCount / elapsedTime; // Characters per second
-    const cpm = Math.floor(cps * 60); // Characters per minute
-    cpmElement.innerText = `Characters Per Minute: ${cpm}`;
 }
 
 async function calculateWPM() {
@@ -160,6 +158,13 @@ async function calculateWPM() {
             console.log('No user is signed in');
         }
     });
+}
+
+function calculateAccuracy() {
+    const totalCharacters = phraseCharacterCount;
+    const correctCharacters = totalCharacters - incorrectCharacters;
+    const accuracy = ((correctCharacters / totalCharacters) * 100).toFixed(2);
+    accuracyElement.innerText = `Accuracy: ${accuracy}%`;
 }
 
 function calculateAverageWPM(wpmValues) {
@@ -311,6 +316,6 @@ document.addEventListener('keyup', event => {
 
 replayButton.addEventListener('click', renderNewQuote);
 
-renderNewQuote()
+renderNewQuote();
 
 
