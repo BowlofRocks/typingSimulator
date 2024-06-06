@@ -348,6 +348,8 @@ document.addEventListener('keydown', event => {
         keyElement.classList.add('highlight');
     }
 
+
+
     // Trigger the replay button action if "Tab" key is pressed
     if (event.key === 'Tab') {
         event.preventDefault();
