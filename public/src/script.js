@@ -1,6 +1,7 @@
 import { auth, db } from './firebase-config.js';
 import {
     onAuthStateChanged,
+    setPersistence, browserLocalPersistence,
     GoogleAuthProvider,
     signInWithPopup,
     signOut
@@ -137,14 +138,14 @@ async function calculateWPM() {
                     const wpmData = userData.wpmData || [];
 
                     // Update document with new WPM entry
-                    await setDoc(userRef, {
+                    await updateDoc(userRef, {
                         wpmData: [...wpmData, { wpm: wpm, timestamp: new Date().toString() }],
                         averageWPM: calculateAverageWPM([...wpmData.map(entry => entry.wpm), wpm])
                     });
 
                     console.log('WPM data and average WPM updated');
                 } else {
-                    await setDoc(userRef, {
+                    await updateDoc(userRef, {
                         wpmData: [{ wpm: wpm, timestamp: new Date().toString() }],
                         averageWPM: wpm
                     });
@@ -280,11 +281,44 @@ async function updateNickname(newNickname) {
 // Handle form submission to update nickname
 nicknameForm.addEventListener('submit', async (event) => {
     event.preventDefault(); // Prevent default form submission
-    const newNickname = newNicknameInput.value;
-    await updateNickname(newNickname); // Update the nickname
-    // Close the popup after submission
-    popup.style.display = 'none';
+    const newNickname = newNicknameInput.value.trim(); // Get and trim the new nickname
+    if (newNickname) { // Check if the new nickname is not empty
+        await updateNickname(newNickname); // Update the nickname
+        // Close the popup after submission
+        popup.style.display = 'none';
+    } else {
+        console.error('Nickname cannot be empty');
+    }
 });
+
+setPersistence(auth, browserLocalPersistence)
+    .then(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                console.log('User is signed in:', user.uid);
+                const userDocRef = doc(db, 'users', user.uid);
+                getDoc(userDocRef).then((docSnap) => {
+                    if (docSnap.exists()) {
+                        const userData = docSnap.data();
+                        const nickname = userData.nickname;
+                        console.log('User nickname:', nickname);
+                        // Update your UI with the nickname
+                    } else {
+                        console.log('No such document!');
+                    }
+                }).catch((error) => {
+                    console.error('Error fetching user data:', error);
+                });
+            } else {
+                // No user is signed in
+                console.log('No user is currently signed in');
+            }
+        });
+    })
+    .catch((error) => {
+        console.error('Error setting persistence:', error);
+    });
 
 // Function to update keyboard colors based on key frequencies
 function updateKeyboardColors() {
