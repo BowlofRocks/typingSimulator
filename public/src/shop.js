@@ -4,7 +4,7 @@ document.getElementById("first-color").addEventListener("click", () => {
         document.documentElement
     ).getPropertyValue("--shop1-bg-color");
 
-    let box = document.getElementById("box");
+    let box = document.querySelector(".container");
 
     box.style.backgroundColor = getComputedStyle(
         document.documentElement
@@ -20,7 +20,7 @@ document.getElementById("second-color").addEventListener("click", () => {
         document.documentElement
     ).getPropertyValue("--shop2-bg-color");
 
-    let box = document.getElementById("box");
+    let box = document.querySelector(".container");
 
     box.style.backgroundColor = getComputedStyle(
         document.documentElement
@@ -36,7 +36,8 @@ document.getElementById("third-color").addEventListener("click", () => {
         document.documentElement
     ).getPropertyValue("--shop3-bg-color");
 
-    let box = document.getElementById("box");
+    let box = document.querySelector(".container");
+
 
     box.style.backgroundColor = getComputedStyle(
         document.documentElement
@@ -52,7 +53,8 @@ document.getElementById("fourth-color").addEventListener("click", () => {
         document.documentElement
     ).getPropertyValue("--shop4-bg-color");
 
-    let box = document.getElementById("box");
+    let box = document.querySelector(".container");
+
 
     box.style.backgroundColor = getComputedStyle(
         document.documentElement
@@ -68,7 +70,8 @@ document.getElementById("fifth-color").addEventListener("click", () => {
         document.documentElement
     ).getPropertyValue("--shop5-bg-color");
 
-    let box = document.getElementById("box");
+    let box = document.querySelector(".container");
+
 
     box.style.backgroundColor = getComputedStyle(
         document.documentElement
