@@ -8,6 +8,7 @@
   <script type="module" src="./src/firebase-config.js" defer></script>
   <script type="module" src="./src/script.js" defer></script>
   <script type="module" src="./src/signIn.js" defer></script>
+  <script type="module" src="./src/shop.js" defer></script>
   <title>Speed Typing</title>
 </head>
 <body>
@@ -27,7 +28,25 @@
     <li class="nav-item"><a href="#" class="nav-link">Link 2</a></li>
     <li class="nav-item"><a href="#" class="nav-link">Link 3</a></li>
     <li class="nav-item"><a href="#" class="nav-link">Link 4</a></li>
-    <li class="nav-item"><a href="#" class="nav-link">Placeholder</a></li>
+    <!-- Dopdown content -->
+    <div class="dropdown">
+      <button class="dropdown-button">Shop</button>
+      <div class="dropdown-content">
+        <!-- Buy Skins -->
+        <button id="first-buy">Oliver: $5</button>
+        <button id="second-buy">Badap ba ba ba: $10</button>
+        <button id="third-buy">Fool's Gold: $15</button>
+        <button id="fourth-buy">Shark Attack: $20</button>
+        <button id="fifth-buy">Barney: $25</button>
+
+        <!--Skins -->
+        <button id="first-color">Oliver</button>
+        <button id="second-color">Badap ba ba ba</button>
+        <button id="third-color">Fool's Gold</button>
+        <button id="fourth-color">Shark Attack</button>
+        <button id="fifth-color">Barney</button>
+      </div>
+    </div>
   </ul>
 </nav>
 <main class="main-content">
@@ -49,11 +68,14 @@
   <div id="leaderboard-section">
     <h2>WPM Leaderboard</h2>
     <div id="leaderboard"></div>
+    <p id="count"></p>
+    <button class="skin-button" id="currency-incrementor">
+      Click for Money
+    </button>
   </div>
 </main>
 <div id="heatmapContainer"></div>
 <button id="changeNicknameButton">Change Nickname</button>
-
 <div id="popup" class="popup">
   <div class="popup-content">
     <span class="close" id="closePopup">&times;</span>
