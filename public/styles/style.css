@@ -352,3 +352,10 @@ button#replayButton {
         padding: 5px;
     }
 }
+#quoteDisplay {
+    user-select: none; /* Standard syntax */
+    -webkit-user-select: none; /* Webkit browsers */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
