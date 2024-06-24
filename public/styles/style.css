@@ -352,3 +352,7 @@ button#replayButton {
         padding: 5px;
     }
 }
+
+.quote-display {
+    user-select: none;
+}
