@@ -1,5 +1,5 @@
 ﻿import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
-import { auth, db } from "./firebase-config.js"
+import { auth, db } from "./firebase-config.js";
 import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
 
 const provider = new GoogleAuthProvider();
@@ -14,20 +14,27 @@ async function signIn() {
         const userDoc = await getDoc(userDocRef);
 
         let nickname;
+        let lastSkin;
         if (userDoc.exists()) {
-            // If user document exists, use the stored nickname
+            // If user document exists, use the stored nickname and skin
             const userData = userDoc.data();
             nickname = userData.nickname;
+            lastSkin = userData.lastSkin;
         } else {
             // If user document does not exist, prompt for nickname and save it
             nickname = prompt('Enter your nickname:');
-            await setDoc(userDocRef, { nickname: nickname });
+            await setDoc(userDocRef, { nickname: nickname, lastSkin: null });
         }
 
         // Update UI
         document.getElementById('whenSignedOut').hidden = true;
         document.getElementById('whenSignedIn').hidden = false;
         document.getElementById('userDetails').innerText = `Hello, ${nickname}`;
+
+        // Apply the last selected skin if it exists
+        if (lastSkin) {
+            applySkin(lastSkin);
+        }
     } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -40,9 +47,56 @@ function signOutUser() {
         document.getElementById('whenSignedOut').hidden = false;
         document.getElementById('whenSignedIn').hidden = true;
         document.getElementById('userDetails').innerText = '';
-    }).catch(() => {
-        console.error(`Sign Out error: ${error.message}`)
+    }).catch((error) => {
+        console.error(`Sign Out error: ${error.message}`);
     });
+}
+
+// Apply the selected skin based on the skin name
+function applySkin(skinName) {
+    let bgColor, boxColor, borderColor;
+
+    switch(skinName) {
+        case 'skin1':
+            bgColor = '--shop1-bg-color';
+            boxColor = '--shop1-box-color';
+            borderColor = '--shop1-border-color';
+            break;
+        case 'skin2':
+            bgColor = '--shop2-bg-color';
+            boxColor = '--shop2-box-color';
+            borderColor = '--shop2-border-color';
+            break;
+        case 'skin3':
+            bgColor = '--shop3-bg-color';
+            boxColor = '--shop3-box-color';
+            borderColor = '--shop3-border-color';
+            break;
+        case 'skin4':
+            bgColor = '--shop4-bg-color';
+            boxColor = '--shop4-box-color';
+            borderColor = '--shop5-border-color';
+            break;
+        case 'skin5':
+            bgColor = '--shop5-bg-color';
+            boxColor = '--shop5-box-color';
+            borderColor = '--shop5-border-color';
+            break;
+    }
+
+    document.body.style.backgroundColor = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue(bgColor);
+
+    let box = document.querySelector(".container");
+
+    box.style.backgroundColor = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue(boxColor);
+
+    box.style.borderColor = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue(borderColor);
 }
 
 // Handle DOMContentLoaded event to set up event listeners
@@ -51,12 +105,23 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('signOutBtn').addEventListener('click', signOutUser);
 
     // Check auth state on page load
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
             // User is signed in
             document.getElementById('whenSignedOut').hidden = true;
             document.getElementById('whenSignedIn').hidden = false;
             document.getElementById('userDetails').innerText = `Hello, ${user.displayName}`;
+
+            // Fetch user data
+            const userDocRef = doc(db, 'users', user.uid);
+            const userDoc = await getDoc(userDocRef);
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                if (userData.lastSkin) {
+                    // Apply the last selected skin if it exists
+                    applySkin(userData.lastSkin);
+                }
+            }
         } else {
             // No user is signed in
             document.getElementById('whenSignedOut').hidden = false;
