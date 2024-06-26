@@ -1,6 +1,6 @@
-﻿import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
+﻿import { browserLocalPersistence, setPersistence, signInWithPopup, signOut, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
 import { auth, db } from "./firebase-config.js";
-import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
+import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
 
 const provider = new GoogleAuthProvider();
 
@@ -130,3 +130,32 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 });
+
+setPersistence(auth, browserLocalPersistence)
+    .then(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                console.log('User is signed in:', user.uid);
+                const userDocRef = doc(db, 'users', user.uid);
+                getDoc(userDocRef).then((docSnap) => {
+                    if (docSnap.exists()) {
+                        const userData = docSnap.data();
+                        const nickname = userData.nickname;
+                        console.log('User nickname:', nickname);
+                        // Update your UI with the nickname
+                    } else {
+                        console.log('No such document!');
+                    }
+                }).catch((error) => {
+                    console.error('Error fetching user data:', error);
+                });
+            } else {
+                // No user is signed in
+                console.log('No user is currently signed in');
+            }
+        });
+    })
+    .catch((error) => {
+        console.error('Error setting persistence:', error);
+    });

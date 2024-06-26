@@ -1,6 +1,7 @@
 import { auth, db } from './firebase-config.js';
 import { calculateWPM } from "./wpm.js";
 import { refreshHeatmap, updateKeyboardColors } from "./heatmap.js";
+import { renderLeaderboard } from "./leaderboard.js";
 import {
     onAuthStateChanged,
     setPersistence, browserLocalPersistence,
@@ -26,17 +27,15 @@ const RANDOM_QUOTE_API_URL = 'https://api.quotable.io/random';
 const quoteDisplayElement = document.getElementById('quoteDisplay');
 const quoteInputElement = document.getElementById('quoteInput');
 const timerElement = document.getElementById('timer');
-const replayButton = document.getElementById('replayButton');
+
 const wpmElement = document.getElementById('wpm');
 const accuracyElement = document.getElementById('accuracy');
-const keyboardContainer = document.getElementById('keyboard');
 
 let timerIntervalId;
 let timerStarted = false;
 let startTime;
 let phraseCharacterCount = 0;
 let wordCount = 0;
-let keyFrequencies = {};
 let incorrectCharacters = 0;
 
 quoteInputElement.addEventListener('input', () => {
@@ -124,8 +123,6 @@ function renderElapsedTime() {
     timerElement.innerText = `Elapsed Time: ${elapsedTime} seconds`;
 }
 
-
-
 function calculateAccuracy() {
     const totalCharacters = phraseCharacterCount;
     const correctCharacters = totalCharacters - incorrectCharacters;
@@ -137,153 +134,6 @@ function calculateAverageWPM(wpmValues) {
     const totalWPM = wpmValues.reduce((total, wpm) => total + wpm, 0);
     return totalWPM / wpmValues.length;
 }
-
-async function fetchAverageWPMData() {
-    try {
-        const usersCollection = collection(db, 'users');
-        const snapshot = await getDocs(usersCollection);
-        const usersData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        console.log('Fetched users data:', usersData);
-        return usersData;
-    } catch (error) {
-        console.error('Error fetching data: ', error);
-        throw error;
-    }
-}
-
-async function getLeaderboardData() {
-    try {
-        const usersData = await fetchAverageWPMData();
-        const leaderboardData = usersData.map(user => ({
-            nickname: user.nickname,
-            averageWPM: user.averageWPM || 0 // Ensure there's a default value
-        }));
-
-        leaderboardData.sort((a, b) => b.averageWPM - a.averageWPM);
-        console.log('Leaderboard data:', leaderboardData);
-        return leaderboardData;
-    } catch (error) {
-        console.error('Error getting leaderboard data: ', error);
-        throw error;
-    }
-}
-
-async function renderLeaderboard() {
-    try {
-        const leaderboardData = await getLeaderboardData();
-        const leaderboardContainer = document.getElementById('leaderboard');
-
-        if (leaderboardData.length === 0) {
-            leaderboardContainer.innerHTML = '<p>No data available</p>';
-            return;
-        }
-
-        leaderboardContainer.innerHTML = leaderboardData.map(user => `
-            <div class="leaderboard-entry">
-                <span class="user-id">${user.nickname}</span>
-                <span class="wpm-bar" style="width: ${user.averageWPM * 5}px;">${user.averageWPM} WPM</span>
-            </div>
-        `).join('');
-        console.log('Rendered leaderboard');
-    } catch (error) {
-        console.error('Error rendering leaderboard: ', error);
-    }
-}
-
-// Ensure the user is authenticated before rendering the leaderboard
-onAuthStateChanged(auth, async (user) => {
-    if (user) {
-        console.log('User is signed in:', user);
-        try {
-            await renderLeaderboard();
-        } catch (error) {
-            console.error('Error in onAuthStateChanged:', error);
-        }
-    } else {
-        console.log('No user is signed in');
-    }
-});
-
-const changeNicknameButton = document.getElementById('changeNicknameButton');
-const popup = document.getElementById('popup');
-const closePopup = document.getElementById('closePopup');
-const nicknameForm = document.getElementById('nicknameForm');
-const newNicknameInput = document.getElementById('newNickname');
-
-// Show popup when the button is clicked
-changeNicknameButton.addEventListener('click', () => {
-    popup.style.display = 'block';
-});
-
-// Close popup when the close button is clicked
-closePopup.addEventListener('click', () => {
-    popup.style.display = 'none';
-});
-
-// Close popup when clicking outside the popup
-window.addEventListener('click', (event) => {
-    if (event.target === popup) {
-        popup.style.display = 'none';
-    }
-});
-
-// Function to update the nickname for the authenticated user in Firestore
-async function updateNickname(newNickname) {
-    try {
-        const user = auth.currentUser; // Get the currently authenticated user
-        if (user) {
-            const userDocRef = doc(db, 'users', user.uid); // Reference to the user document
-            await updateDoc(userDocRef, { nickname: newNickname }); // Update the user document with the new nickname
-            console.log('Nickname updated successfully');
-        } else {
-            console.error('No user is currently authenticated');
-        }
-    } catch (error) {
-        console.error('Error updating nickname:', error);
-    }
-}
-
-// Handle form submission to update nickname
-nicknameForm.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevent default form submission
-    const newNickname = newNicknameInput.value.trim(); // Get and trim the new nickname
-    if (newNickname) { // Check if the new nickname is not empty
-        await updateNickname(newNickname); // Update the nickname
-        // Close the popup after submission
-        popup.style.display = 'none';
-    } else {
-        console.error('Nickname cannot be empty');
-    }
-});
-
-setPersistence(auth, browserLocalPersistence)
-    .then(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is signed in
-                console.log('User is signed in:', user.uid);
-                const userDocRef = doc(db, 'users', user.uid);
-                getDoc(userDocRef).then((docSnap) => {
-                    if (docSnap.exists()) {
-                        const userData = docSnap.data();
-                        const nickname = userData.nickname;
-                        console.log('User nickname:', nickname);
-                        // Update your UI with the nickname
-                    } else {
-                        console.log('No such document!');
-                    }
-                }).catch((error) => {
-                    console.error('Error fetching user data:', error);
-                });
-            } else {
-                // No user is signed in
-                console.log('No user is currently signed in');
-            }
-        });
-    })
-    .catch((error) => {
-        console.error('Error setting persistence:', error);
-    });
 
 //Shuffle
 replayButton.addEventListener('click', renderNewQuote);
