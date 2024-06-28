@@ -2,23 +2,7 @@ import { auth, db } from './firebase-config.js';
 import { calculateWPM } from "./wpm.js";
 import { refreshHeatmap, updateKeyboardColors } from "./heatmap.js";
 import { renderLeaderboard } from "./leaderboard.js";
-import {
-    onAuthStateChanged,
-    setPersistence, browserLocalPersistence,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut
-} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
-import {
-    doc,
-    getDoc,
-    getDocs,
-    setDoc,
-    updateDoc,
-    arrayUnion,
-    serverTimestamp,
-    collection
-} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
+
 
 // Animations commented out for now.
 // import './animations.js';
