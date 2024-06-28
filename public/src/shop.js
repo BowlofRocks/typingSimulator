@@ -1,21 +1,6 @@
 import { auth, db } from './firebase-config.js';
-import {
-    onAuthStateChanged,
-    setPersistence, browserLocalPersistence,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut
-} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
-import {
-    doc,
-    getDoc,
-    getDocs,
-    setDoc,
-    updateDoc,
-    arrayUnion,
-    serverTimestamp,
-    collection
-} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
+import { doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
+import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js'
 
 document.addEventListener("DOMContentLoaded", () => {
     async function saveSkinToProfile(skin) {
@@ -101,25 +86,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             return [];
         }
     }
-
-    async function updateShopDropdown() {
-        const skins = await fetchUserSkins();
-        shopDropdown.innerHTML = ""; // Clear existing dropdown content
-
-        // Create and append new buttons for each skin
-        skins.forEach((skin, index) => {
-            const button = document.createElement("button");
-            button.textContent = skin.name; // Assuming each skin object has a 'name' property
-            button.addEventListener("click", () => {
-                // Apply the selected skin
-                applySkin(skin); // Implement applySkin function as per your requirements
-            });
-            shopDropdown.appendChild(button);
-        });
-    }
-
-    // Initial update of the shop dropdown on page load
-    await updateShopDropdown();
 });
 
 function applySkin(skinName) {
@@ -153,254 +119,272 @@ function applySkin(skinName) {
             break;
     }
 
-//Skins
-    document.getElementById("first-color").addEventListener("click", () => {
-        document.body.style.backgroundColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop1-bg-color");
+    document.body.style.backgroundColor = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue(bgColor);
 
-        let box = document.querySelector(".container");
+    let box = document.querySelector(".container");
 
-        box.style.backgroundColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop1-box-color");
+    box.style.backgroundColor = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue(boxColor);
 
-        box.style.borderColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop1-border-color");
+    box.style.borderColor = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue(borderColor);
+}
+document.addEventListener("DOMContentLoaded", async () => {
+    const shopDropdown = document.querySelector(".dropdown-content");
+
+    async function fetchUserSkins() {
+        const user = auth.currentUser;
+        if (user) {
+            const userDocRef = doc(db, "users", user.uid);
+            try {
+                const userDoc = await getDoc(userDocRef);
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    const purchasedSkins = userData.purchasedSkins || []; // Assuming purchasedSkins is an array field in Firestore
+                    console.log("Fetched Purchased Skins:", purchasedSkins); // Debug output
+                    return purchasedSkins;
+                } else {
+                    console.log("User document does not exist");
+                    return [];
+                }
+            } catch (error) {
+                console.error("Error fetching user document:", error);
+                return [];
+            }
+        } else {
+            console.log("No user is signed in");
+            return [];
+        }
+    }
+
+    // Function to initialize the dropdown based on user's purchased skins
+    async function initializeDropdown() {
+        const purchasedSkins = await fetchUserSkins();
+        console.log("Purchased Skins:", purchasedSkins); // Debug output
+
+        const dropdownItems = Array.from(shopDropdown.children);
+
+        for (let item of dropdownItems) {
+            const skinName = item.dataset.skin;
+            if (purchasedSkins.includes(skinName)) {
+                item.textContent = `${skinName} (Owned)`; // Update text to indicate ownership
+                // Optionally disable or change appearance to indicate ownership
+            }
+        }
+    }
+
+    // Call initializeDropdown when the DOM is loaded
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            await initializeDropdown();
+        } else {
+            console.log("No user is signed in");
+        }
     });
-
-    document.getElementById("second-color").addEventListener("click", () => {
-        document.body.style.backgroundColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop2-bg-color");
-
-        let box = document.querySelector(".container");
-
-        box.style.backgroundColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop2-box-color");
-
-        box.style.borderColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop2-border-color");
-    });
-
-    document.getElementById("third-color").addEventListener("click", () => {
-        document.body.style.backgroundColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop3-bg-color");
-
-        let box = document.querySelector(".container");
+});
 
 
-        box.style.backgroundColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop3-box-color");
-
-        box.style.borderColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop3-border-color");
-    });
-
-    document.getElementById("fourth-color").addEventListener("click", () => {
-        document.body.style.backgroundColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop4-bg-color");
-
-        let box = document.querySelector(".container");
 
 
-        box.style.backgroundColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop4-box-color");
-
-        box.style.borderColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop5-border-color");
-    });
-
-    document.getElementById("fifth-color").addEventListener("click", () => {
-        document.body.style.backgroundColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop5-bg-color");
-
-        let box = document.querySelector(".container");
-
-
-        box.style.backgroundColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop5-box-color");
-
-        box.style.borderColor = getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--shop5-border-color");
-    });
 
 //Currency
-    let count = document.getElementById("count");
+let count = document.getElementById("count");
 
-    document
-        .getElementById("currency-incrementor")
-        .addEventListener("click", () => {
-            let currentCount = parseInt(count.textContent);
-            if (isNaN(currentCount)) {
-                currentCount = 0;
-            }
+document
+    .getElementById("currency-incrementor")
+    .addEventListener("click", () => {
+        let currentCount = parseInt(count.textContent);
+        if (isNaN(currentCount)) {
+            currentCount = 0;
+        }
 
-            currentCount++;
-            count.textContent = currentCount;
+        currentCount++;
+        count.textContent = currentCount;
 
-            localStorage.setItem("count", currentCount);
-        });
+        localStorage.setItem("count", currentCount);
+    });
 
 //Save Player Currency
-    window.onload = () => {
-        let savedCount = localStorage.getItem("count");
-        if (savedCount !== null) {
-            count.textContent = parseInt(savedCount);
-        }
-    };
+window.onload = () => {
+    let savedCount = localStorage.getItem("count");
+    if (savedCount !== null) {
+        count.textContent = parseInt(savedCount);
+    }
+};
 
 //Buy Skins
+// Buy buttons and costs
+const buyButtons = [
+    { button: document.getElementById("first-buy"), cost: 5, colorButton: document.getElementById("first-color") },
+    { button: document.getElementById("second-buy"), cost: 10, colorButton: document.getElementById("second-color") },
+    { button: document.getElementById("third-buy"), cost: 15, colorButton: document.getElementById("third-color") },
+    { button: document.getElementById("fourth-buy"), cost: 20, colorButton: document.getElementById("fourth-color") },
+    { button: document.getElementById("fifth-buy"), cost: 25, colorButton: document.getElementById("fifth-color") }
+];
+
+buyButtons.forEach(item => {
+    item.button.addEventListener("click", () => {
+        handleBuy(item);
+    });
+});
+
+function handleBuy({ button, cost, colorButton }) {
+    let currentCount = parseInt(localStorage.getItem("count")) || 0;
+
+    if (currentCount >= cost) {
+        currentCount -= cost;
+        localStorage.setItem("count", currentCount);
+        count.textContent = currentCount;
+
+        // Display corresponding color button
+        colorButton.style.display = "block";
+
+        // Hide the buy button
+        button.style.display = "none";
+    } else {
+        console.log("Insufficient funds");
+    }
+}
 
 //Cost of Skins
-    const costOne = 5;
-    const costTwo = 10;
-    const costThree = 15;
-    const costFour = 20;
-    const costFive = 25;
+const costOne = 5;
+const costTwo = 10;
+const costThree = 15;
+const costFour = 20;
+const costFive = 25;
 
 //Buy buttons
-    let firstBuy = document.getElementById("first-buy");
-    let secondBuy = document.getElementById("second-buy");
-    let thirdBuy = document.getElementById("third-buy");
-    let fourthBuy = document.getElementById("fourth-buy");
-    let fifthBuy = document.getElementById("fifth-buy");
+let firstBuy = document.getElementById("first-buy");
+let secondBuy = document.getElementById("second-buy");
+let thirdBuy = document.getElementById("third-buy");
+let fourthBuy = document.getElementById("fourth-buy");
+let fifthBuy = document.getElementById("fifth-buy");
 
 //Skins buttons
-    let firstColor = document.getElementById("first-color");
-    let secondColor = document.getElementById("second-color");
-    let thirdColor = document.getElementById("third-color");
-    let fourthColor = document.getElementById("fourth-color");
-    let fifthColor = document.getElementById("fifth-color");
+let firstColor = document.getElementById("first-color");
+let secondColor = document.getElementById("second-color");
+let thirdColor = document.getElementById("third-color");
+let fourthColor = document.getElementById("fourth-color");
+let fifthColor = document.getElementById("fifth-color");
 
 // Add event listener to the button
-    firstBuy.addEventListener("click", () => {
-        //Get the current count from local storage
-        let currentCount = parseInt(localStorage.getItem("count"));
+firstBuy.addEventListener("click", () => {
+    //Get the current count from local storage
+    let currentCount = parseInt(localStorage.getItem("count"));
 
-        // Check if currentCount is a number and is greater than or equal to the cost
-        if (!isNaN(currentCount) && currentCount >= costOne) {
-            // Decrement the count by the cost
-            currentCount -= costOne;
+    // Check if currentCount is a number and is greater than or equal to the cost
+    if (!isNaN(currentCount) && currentCount >= costOne) {
+        // Decrement the count by the cost
+        currentCount -= costOne;
 
-            // Save the decremented count back to local storage
-            localStorage.setItem("count", currentCount);
+        // Save the decremented count back to local storage
+        localStorage.setItem("count", currentCount);
 
-            // Update the count on the screen
-            count.textContent = currentCount;
+        // Update the count on the screen
+        count.textContent = currentCount;
 
-            // Change the display property of the element to show
-            firstColor.style.display = "block";
+        // Change the display property of the element to show
+        firstColor.style.display = "block";
 
-            // Hide the buy button
-            firstBuy.style.display = "none";
-        }
-    });
+        // Hide the buy button
+        firstBuy.style.display = "none";
+    }
+});
 
 // Add similar event listeners for the other buy buttons...
 
-    secondBuy.addEventListener("click", () => {
+secondBuy.addEventListener("click", () => {
+    //Get the current count from local storage
+    let currentCount = parseInt(localStorage.getItem("count"));
+
+    // Check if currentCount is a number and is greater than or equal to the cost
+    if (!isNaN(currentCount) && currentCount >= costTwo) {
+        // Decrement the count by the cost
+        currentCount -= costTwo;
+
+        // Save the decremented count back to local storage
+        localStorage.setItem("count", currentCount);
+
+        // Update the count on the screen
+        count.textContent = currentCount;
+
+        // Change the display property of the element to show
+        secondColor.style.display = "block";
+
+        // Hide the buy button
+        secondBuy.style.display = "none";
+    }
+});
+
+thirdBuy.addEventListener("click", () => {
+    //Get the current count from local storage
+    let currentCount = parseInt(localStorage.getItem("count"));
+
+    // Check if currentCount is a number and is greater than or equal to the cost
+    if (!isNaN(currentCount) && currentCount >= costThree) {
+        // Decrement the count by the cost
+        currentCount -= costThree;
+
+        // Save the decremented count back to local storage
+        localStorage.setItem("count", currentCount);
+
+        // Update the count on the screen
+        count.textContent = currentCount;
+
+        // Change the display property of the element to show
+        thirdColor.style.display = "block";
+
+        // Hide the buy button
+        thirdBuy.style.display = "none";
+    }
+});
+
+fourthBuy.addEventListener("click", () => {
         //Get the current count from local storage
-        let currentCount = parseInt(localStorage.getItem("count"));
+    let currentCount = parseInt(localStorage.getItem("count"));
 
         // Check if currentCount is a number and is greater than or equal to the cost
-        if (!isNaN(currentCount) && currentCount >= costTwo) {
+    if (!isNaN(currentCount) && currentCount >= costFour) {
             // Decrement the count by the cost
-            currentCount -= costTwo;
+        currentCount -= costFour;
 
             // Save the decremented count back to local storage
-            localStorage.setItem("count", currentCount);
+        localStorage.setItem("count", currentCount);
 
             // Update the count on the screen
-            count.textContent = currentCount;
+        count.textContent = currentCount;
 
             // Change the display property of the element to show
-            secondColor.style.display = "block";
+        fourthColor.style.display = "block";
 
             // Hide the buy button
-            secondBuy.style.display = "none";
-        }
-    });
+        fourthBuy.style.display = "none";
+    }
+});
 
-    thirdBuy.addEventListener("click", () => {
+fifthBuy.addEventListener("click", () => {
         //Get the current count from local storage
-        let currentCount = parseInt(localStorage.getItem("count"));
+    let currentCount = parseInt(localStorage.getItem("count"));
 
         // Check if currentCount is a number and is greater than or equal to the cost
-        if (!isNaN(currentCount) && currentCount >= costThree) {
+    if (!isNaN(currentCount) && currentCount >= costFive) {
             // Decrement the count by the cost
-            currentCount -= costThree;
+        currentCount -= costFive;
 
             // Save the decremented count back to local storage
-            localStorage.setItem("count", currentCount);
+        localStorage.setItem("count", currentCount);
 
             // Update the count on the screen
-            count.textContent = currentCount;
+        count.textContent = currentCount;
 
             // Change the display property of the element to show
-            thirdColor.style.display = "block";
+        fifthColor.style.display = "block";
 
             // Hide the buy button
-            thirdBuy.style.display = "none";
-        }
-    });
-
-    fourthBuy.addEventListener("click", () => {
-        //Get the current count from local storage
-        let currentCount = parseInt(localStorage.getItem("count"));
-
-        // Check if currentCount is a number and is greater than or equal to the cost
-        if (!isNaN(currentCount) && currentCount >= costFour) {
-            // Decrement the count by the cost
-            currentCount -= costFour;
-
-            // Save the decremented count back to local storage
-            localStorage.setItem("count", currentCount);
-
-            // Update the count on the screen
-            count.textContent = currentCount;
-
-            // Change the display property of the element to show
-            fourthColor.style.display = "block";
-
-            // Hide the buy button
-            fourthBuy.style.display = "none";
-        }
-    });
-
-    fifthBuy.addEventListener("click", () => {
-        //Get the current count from local storage
-        let currentCount = parseInt(localStorage.getItem("count"));
-
-        // Check if currentCount is a number and is greater than or equal to the cost
-        if (!isNaN(currentCount) && currentCount >= costFive) {
-            // Decrement the count by the cost
-            currentCount -= costFive;
-
-            // Save the decremented count back to local storage
-            localStorage.setItem("count", currentCount);
-
-            // Update the count on the screen
-            count.textContent = currentCount;
-
-            // Change the display property of the element to show
-            fifthColor.style.display = "block";
-
-            // Hide the buy button
-            fifthBuy.style.display = "none";
-        }
-    });
-}
-//deincrement currency
+        fifthBuy.style.display = "none";
+    }
+});
