@@ -2,31 +2,39 @@
 
 const keyboardContainer = document.getElementById('keyboard');
 
-let keyFrequencies = {};
+let keyErrorCounts = {};
 
-// Function to update keyboard colors based on key frequencies
-function updateKeyboardColors() {
-    const maxFrequency = Math.max(...Object.values(keyFrequencies));
-    const minFrequency = Math.min(...Object.values(keyFrequencies));
-
-    // Iterate over keys and update colors based on frequencies
+// Function to update keyboard colors based on key error counts
+function updateKeyboardColors(errorCounts) {
+    // Iterate over keys and update colors based on error counts
     keys.flat().forEach(key => {
         const keyElement = document.querySelector(`.key[data-key="${key}"]`);
         if (keyElement) {
-            const frequency = keyFrequencies[key] || 0;
-            const normalizedFrequency = (frequency - minFrequency) / (maxFrequency - minFrequency);
-            // Calculate color directly and set as background color
-            keyElement.style.backgroundColor = frequency > 0 ? `rgb(${Math.round(255 * (1 - normalizedFrequency))}, ${Math.round(255 * normalizedFrequency)}, 0)` : '';
+            const errors = errorCounts[key] || 0;
+            let color = '';
+
+            // Determine color based on error count thresholds
+            if (errors === 1) {
+                color = 'green';
+            } else if (errors === 2) {
+                color = 'yellow';
+            } else if (errors === 3) {
+                color = 'orange';
+            } else if (errors >= 4) {
+                color = 'red';
+            }
+
+            keyElement.style.backgroundColor = color;
         }
     });
 }
 
 // Function to refresh heatmap
 function refreshHeatmap() {
-    // Clear key frequencies
-    keyFrequencies = {};
+    // Clear key error counts
+    keyErrorCounts = {};
     // Update keyboard colors
-    updateKeyboardColors();
+    updateKeyboardColors(keyErrorCounts);
 }
 
 // Array of keys
@@ -52,10 +60,10 @@ keys.forEach(rowKeys => {
 
 document.addEventListener('keydown', event => {
     const keyPressed = event.key.toUpperCase();
-    if (!keyFrequencies[keyPressed]) {
-        keyFrequencies[keyPressed] = 0;
+    if (!keyErrorCounts[keyPressed]) {
+        keyErrorCounts[keyPressed] = 0;
     }
-    keyFrequencies[keyPressed]++;
+    keyErrorCounts[keyPressed]++;
     const keyElement = Array.from(document.querySelectorAll('.key')).find(
         element => element.dataset.key === keyPressed ||
             (event.key === ' ' && element.dataset.key === 'Space') ||
@@ -65,8 +73,6 @@ document.addEventListener('keydown', event => {
     if (keyElement) {
         keyElement.classList.add('highlight');
     }
-
-
 
     // Trigger the replay button action if "Tab" key is pressed
     if (event.key === 'Tab') {
@@ -88,4 +94,5 @@ document.addEventListener('keyup', event => {
     }
 });
 
-export {refreshHeatmap, updateKeyboardColors}
+export { refreshHeatmap, updateKeyboardColors };
+
