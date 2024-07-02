@@ -1,5 +1,5 @@
 import { auth, db } from './firebase-config.js';
-import { getFirestore, doc, getDoc, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { doc, getDoc, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -49,13 +49,24 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Purchased Skins:", purchasedSkins); // Debug output
 
             const skinButtons = document.querySelectorAll(".dropdown-content button[data-skin]");
+            const buyButtons = document.querySelectorAll(".dropdown-content button[id$='-buy']");
 
             skinButtons.forEach(button => {
                 const skinName = button.getAttribute("data-skin");
                 if (purchasedSkins.includes(skinName)) {
-                    button.style.display = "block"; // Show skin switch button
+                    button.style.display = "block"; // Show switch button if purchased
                 } else {
-                    button.style.display = "none"; // Hide skin switch button if not purchased
+                    button.style.display = "none"; // Hide switch button if not purchased
+                }
+            });
+
+            buyButtons.forEach(button => {
+                const skinId = button.id.split('-')[0];
+                const skinName = document.querySelector(`#${skinId}-color`).getAttribute("data-skin");
+                if (purchasedSkins.includes(skinName)) {
+                    button.style.display = "none"; // Hide buy button if purchased
+                } else {
+                    button.style.display = "block"; // Show buy button if not purchased
                 }
             });
         } else {
@@ -209,5 +220,4 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("Unknown skin:", skinName);
         }
     }
-
 });

@@ -1,22 +1,7 @@
 ﻿import { auth, db } from './firebase-config.js';
-import { getTimerTime, renderElapsedTime, wordCount } from './main.js'
-import {
-    onAuthStateChanged,
-    setPersistence, browserLocalPersistence,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut
-} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
-import {
-    doc,
-    getDoc,
-    getDocs,
-    setDoc,
-    updateDoc,
-    arrayUnion,
-    serverTimestamp,
-    collection
-} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
+import { getTimerTime, wordCount } from './main.js'
+import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import { doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 const wpmElement = document.getElementById('wpm');
 

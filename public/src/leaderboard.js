@@ -7,14 +7,9 @@ import {
     signOut
 } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
 import {
-    doc,
-    getDoc,
     getDocs,
-    setDoc,
-    updateDoc,
-    arrayUnion,
-    serverTimestamp,
-    collection
+    collection,
+    onSnapshot
 } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 async function fetchAverageWPMData() {
@@ -35,7 +30,7 @@ async function getLeaderboardData() {
         const usersData = await fetchAverageWPMData();
         const leaderboardData = usersData.map(user => ({
             nickname: user.nickname,
-            averageWPM: user.averageWPM || 0 // Ensure there's a default value
+            averageWPM: (user.averageWPM || 0).toFixed(2) // Ensure there's a default value and limit to 2 decimal places
         }));
 
         leaderboardData.sort((a, b) => b.averageWPM - a.averageWPM);
@@ -69,17 +64,41 @@ async function renderLeaderboard() {
     }
 }
 
-onAuthStateChanged(auth, async (user) => {
+function listenForWPMChanges() {
+    const usersCollection = collection(db, 'users');
+    onSnapshot(usersCollection, async (snapshot) => {
+        const usersData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const leaderboardData = usersData.map(user => ({
+            nickname: user.nickname,
+            averageWPM: (user.averageWPM || 0).toFixed(2) // Ensure there's a default value and limit to 2 decimal places
+        }));
+
+        leaderboardData.sort((a, b) => b.averageWPM - a.averageWPM);
+        console.log('Real-time leaderboard data:', leaderboardData);
+        const leaderboardContainer = document.getElementById('leaderboard');
+
+        if (leaderboardData.length === 0) {
+            leaderboardContainer.innerHTML = '<p>No data available</p>';
+            return;
+        }
+
+        leaderboardContainer.innerHTML = leaderboardData.map(user => `
+            <div class="leaderboard-entry">
+                <span class="user-id">${user.nickname}</span>
+                <span class="wpm-bar" style="width: ${user.averageWPM * 5}px;">${user.averageWPM} WPM</span>
+            </div>
+        `).join('');
+        console.log('Rendered real-time leaderboard');
+    });
+}
+
+onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log('User is signed in:', user);
-        try {
-            await renderLeaderboard();
-        } catch (error) {
-            console.error('Error in onAuthStateChanged:', error);
-        }
+        listenForWPMChanges();
     } else {
         console.log('No user is signed in');
     }
 });
 
-export { renderLeaderboard }
+export { renderLeaderboard };
