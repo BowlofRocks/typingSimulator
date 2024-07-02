@@ -2,7 +2,23 @@ import { auth, db } from './firebase-config.js';
 import { calculateWPM } from "./wpm.js";
 import { refreshHeatmap, updateKeyboardColors } from "./heatmap.js";
 import { renderLeaderboard } from "./leaderboard.js";
-
+import {
+    onAuthStateChanged,
+    setPersistence, browserLocalPersistence,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut
+} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
+import {
+    doc,
+    getDoc,
+    getDocs,
+    setDoc,
+    updateDoc,
+    arrayUnion,
+    serverTimestamp,
+    collection
+} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
 
 // Animations commented out for now.
 // import './animations.js';
@@ -21,6 +37,7 @@ let startTime;
 let phraseCharacterCount = 0;
 let wordCount = 0;
 let incorrectCharacters = 0;
+let keyErrorCounts = {}; // To track key errors
 
 quoteInputElement.addEventListener('input', () => {
     if (!timerStarted) {
@@ -33,16 +50,22 @@ quoteInputElement.addEventListener('input', () => {
 
     arrayQuote.forEach((characterSpan, index) => {
         const character = arrayValue[index];
+        const correctCharacter = characterSpan.innerText.toUpperCase();
         if (character == null) {
             characterSpan.classList.remove('correct');
             characterSpan.classList.remove('incorrect');
             correct = false;
-        } else if (character === characterSpan.innerText) {
+        } else if (character.toUpperCase() === correctCharacter) {
             characterSpan.classList.add('correct');
             characterSpan.classList.remove('incorrect');
         } else {
             if (!characterSpan.classList.contains('incorrect')) {
                 incorrectCharacters++;
+                // Track the correct key that should have been pressed
+                if (!keyErrorCounts[correctCharacter]) {
+                    keyErrorCounts[correctCharacter] = 0;
+                }
+                keyErrorCounts[correctCharacter]++;
             }
             characterSpan.classList.remove('correct');
             characterSpan.classList.add('incorrect');
@@ -55,7 +78,7 @@ quoteInputElement.addEventListener('input', () => {
         renderElapsedTime();
         calculateWPM();
         calculateAccuracy();
-        updateKeyboardColors();
+        updateKeyboardColors(keyErrorCounts); // Pass the error counts to updateKeyboardColors
         setTimeout(() => {
             wpmElement.innerText = ''; // Clear wpm
             accuracyElement.innerText = ''; // Clear accuracy
@@ -73,6 +96,7 @@ function getRandomQuote() {
 async function renderNewQuote() {
     wordCount = 0;
     incorrectCharacters = 0; // Reset the incorrect character count when rendering a new quote
+    keyErrorCounts = {}; // Reset key error counts when rendering a new quote
     const quote = await getRandomQuote();
     const words = quote.split(' ');
     wordCount = words.length;
@@ -124,4 +148,4 @@ replayButton.addEventListener('click', renderNewQuote);
 
 renderNewQuote();
 
-export {getTimerTime, renderElapsedTime, wordCount, renderNewQuote}
+export { getTimerTime, renderElapsedTime, wordCount, renderNewQuote };
