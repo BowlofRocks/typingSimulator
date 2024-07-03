@@ -2,6 +2,27 @@ import { auth, db } from './firebase-config.js';
 import { doc, getDoc, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
+export function incrementCount() {
+    const count = document.getElementById("count");
+
+
+    let currentCount = parseInt(count.textContent);
+    if (isNaN(currentCount)) {
+        currentCount = 0;
+    }
+
+    currentCount++;
+    count.textContent = currentCount;
+
+    localStorage.setItem("count", currentCount);
+
+    window.onload = () => {
+        const savedCount = localStorage.getItem("count");
+        if (savedCount !== null) {
+            count.textContent = parseInt(savedCount);
+        }
+    };
+}
 document.addEventListener("DOMContentLoaded", () => {
     // Save skin to user's Firestore profile
     async function saveSkinToProfile(skin) {
