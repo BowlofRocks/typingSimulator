@@ -1,21 +1,6 @@
 ﻿import { auth, db } from './firebase-config.js';
-import {
-    onAuthStateChanged,
-    setPersistence, browserLocalPersistence,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut
-} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
-import {
-    doc,
-    getDoc,
-    getDocs,
-    setDoc,
-    updateDoc,
-    arrayUnion,
-    serverTimestamp,
-    collection
-} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js';
+
+import { doc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 const changeNicknameButton = document.getElementById('changeNicknameButton');
 const popup = document.getElementById('popup');
