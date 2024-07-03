@@ -1,5 +1,6 @@
 import { auth, db } from './firebase-config.js';
 import { calculateWPM } from "./wpm.js";
+import {incrementCount} from "./shop.js";
 import { refreshHeatmap, updateKeyboardColors } from "./heatmap.js";
 import { renderLeaderboard } from "./leaderboard.js";
 import {
@@ -77,13 +78,14 @@ quoteInputElement.addEventListener('input', () => {
         clearInterval(timerIntervalId);
         renderElapsedTime();
         calculateWPM();
+        incrementCount();
         calculateAccuracy();
         updateKeyboardColors(keyErrorCounts); // Pass the error counts to updateKeyboardColors
         setTimeout(() => {
             wpmElement.innerText = ''; // Clear wpm
             accuracyElement.innerText = ''; // Clear accuracy
             renderNewQuote();
-        }, 2500); // Amount of time before refreshing prompt
+        }, 2500); // Amount of t
     }
 });
 
