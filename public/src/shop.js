@@ -2,6 +2,7 @@ import { auth, db } from './firebase-config.js';
 import { doc, getDoc, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
+//This is to increment count whenever the user finishes the count for the main.js file.
 export function incrementCount() {
     const count = document.getElementById("count");
 
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     onAuthStateChanged(auth, initializeDropdown);
 
-    // Currency Handling
+    // Currency Handling: this shows in local storage
     const count = document.getElementById("count");
 
     document.getElementById("currency-incrementor").addEventListener("click", () => {
@@ -204,6 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { element: document.getElementById("fifth-color"), skin: "skin5", colors: ["--shop5-bg-color", "--shop5-box-color", "--shop5-border-color"] }
     ];
 
+    //Iterates though the array and changes color based on the button that has been pressed. 
     colorButtons.forEach(button => {
         button.element.addEventListener("click", () => {
             changeColors(button.colors[0], button.colors[1], button.colors[2], button.skin);
