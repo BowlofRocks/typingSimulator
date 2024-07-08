@@ -198,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Color button setup
     const colorButtons = [
+        { element: document.getElementById("original-skin"), skin: "original", colors: ["--default-bgcolor", "--default-contcolor", "default-bordercolor"] },
         { element: document.getElementById("first-color"), skin: "skin1", colors: ["--shop1-bg-color", "--shop1-box-color", "--shop1-border-color"] },
         { element: document.getElementById("second-color"), skin: "skin2", colors: ["--shop2-bg-color", "--shop2-box-color", "--shop2-border-color"] },
         { element: document.getElementById("third-color"), skin: "skin3", colors: ["--shop3-bg-color", "--shop3-box-color", "--shop3-border-color"] },
