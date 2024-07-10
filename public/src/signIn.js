@@ -44,6 +44,53 @@ async function signIn() {
     }
 }
 
+// Apply the selected skin based on the skin name
+function applySkin(skinName) {
+    let bgColor, boxColor, borderColor;
+
+    switch(skinName) {
+        case 'skin1':
+            bgColor = '--shop1-bg-color';
+            boxColor = '--shop1-box-color';
+            borderColor = '--shop1-border-color';
+            break;
+        case 'skin2':
+            bgColor = '--shop2-bg-color';
+            boxColor = '--shop2-box-color';
+            borderColor = '--shop2-border-color';
+            break;
+        case 'skin3':
+            bgColor = '--shop3-bg-color';
+            boxColor = '--shop3-box-color';
+            borderColor = '--shop3-border-color';
+            break;
+        case 'skin4':
+            bgColor = '--shop4-bg-color';
+            boxColor = '--shop4-box-color';
+            borderColor = '--shop5-border-color';
+            break;
+        case 'skin5':
+            bgColor = '--shop5-bg-color';
+            boxColor = '--shop5-box-color';
+            borderColor = '--shop5-border-color';
+            break;
+    }
+
+    document.body.style.backgroundColor = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue(bgColor);
+
+    let box = document.querySelector(".container");
+
+    box.style.backgroundColor = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue(boxColor);
+
+    box.style.borderColor = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue(borderColor);
+}
+
 function signOutUser() {
     signOut(auth).then(() => {
         document.getElementById('whenSignedOut').hidden = false;
@@ -117,3 +164,4 @@ setPersistence(auth, browserLocalPersistence)
     .catch((error) => {
         console.error('Error setting persistence:', error);
     });
+

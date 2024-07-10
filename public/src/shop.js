@@ -2,28 +2,51 @@ import { auth, db } from './firebase-config.js';
 import { doc, getDoc, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
-//This is to increment count whenever the user finishes the count for the main.js file.
-export function incrementCount() {
-    const count = document.getElementById("count");
-
-
-    let currentCount = parseInt(count.textContent);
-    if (isNaN(currentCount)) {
-        currentCount = 0;
-    }
-
-    currentCount++;
-    count.textContent = currentCount;
-
-    localStorage.setItem("count", currentCount);
-
-    window.onload = () => {
-        const savedCount = localStorage.getItem("count");
-        if (savedCount !== null) {
-            count.textContent = parseInt(savedCount);
+// Fetch count from Firestore
+async function fetchUserCount(user) {
+    const userDocRef = doc(db, "users", user.uid);
+    try {
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            const count = userData.count || 0; // Assuming 'count' is a field in Firestore
+            return count;
+        } else {
+            console.log("User document does not exist");
+            return 0;
         }
-    };
+    } catch (error) {
+        console.error("Error fetching user count:", error);
+        return 0;
+    }
 }
+
+// Update count in Firestore
+async function updateUserCount(user, newCount) {
+    const userDocRef = doc(db, "users", user.uid);
+    try {
+        await updateDoc(userDocRef, {
+            count: newCount
+        });
+        console.log("Count updated successfully!");
+    } catch (error) {
+        console.error("Error updating count: ", error);
+    }
+}
+
+// Increment count
+async function incrementCount() {
+    const user = auth.currentUser;
+    if (user) {
+        const currentCount = await fetchUserCount(user);
+        const newCount = currentCount + 1;
+        updateUserCount(user, newCount);
+        document.getElementById("count").textContent = newCount;
+    } else {
+        console.log("No user is signed in");
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     // Save skin to user's Firestore profile
     async function saveSkinToProfile(skin) {
@@ -118,28 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     onAuthStateChanged(auth, initializeDropdown);
 
-    // Currency Handling: this shows in local storage
-    const count = document.getElementById("count");
-
-    document.getElementById("currency-incrementor").addEventListener("click", () => {
-        let currentCount = parseInt(count.textContent);
-        if (isNaN(currentCount)) {
-            currentCount = 0;
-        }
-
-        currentCount++;
-        count.textContent = currentCount;
-
-        localStorage.setItem("count", currentCount);
-    });
-
-    window.onload = () => {
-        const savedCount = localStorage.getItem("count");
-        if (savedCount !== null) {
-            count.textContent = parseInt(savedCount);
-        }
-    };
-
     // Buy Skins
     const skins = [
         { button: "first-buy", colorButton: "first-color", cost: 5, skin: "skin1" },
@@ -155,26 +156,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Handle skin purchase
     async function handleBuy({ button, cost, colorButton, skin }) {
-        let currentCount = parseInt(localStorage.getItem("count")) || 0;
+        const user = auth.currentUser;
+        if (user) {
+            const currentCount = await fetchUserCount(user);
 
-        if (currentCount >= cost) {
-            currentCount -= cost;
-            localStorage.setItem("count", currentCount);
-            count.textContent = currentCount;
+            if (currentCount >= cost) {
+                const newCount = currentCount - cost;
+                await updateUserCount(user, newCount);
+                document.getElementById("count").textContent = newCount;
 
-            // Display corresponding color button
-            document.getElementById(colorButton).style.display = "block";
+                // Display corresponding color button
+                document.getElementById(colorButton).style.display = "block";
 
-            // Hide the buy button
-            document.getElementById(button).style.display = "none";
+                // Hide the buy button
+                document.getElementById(button).style.display = "none";
 
-            // Save the purchased skin to user's profile
-            await savePurchasedSkin(skin);
+                // Save the purchased skin to user's profile
+                await savePurchasedSkin(skin);
 
-            // Update dropdown to show purchased skins
-            await initializeDropdown();
+                // Update dropdown to show purchased skins
+                await initializeDropdown();
+            } else {
+                console.log("Insufficient funds");
+            }
         } else {
-            console.log("Insufficient funds");
+            console.log("No user is signed in");
         }
     }
 
@@ -206,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { element: document.getElementById("fifth-color"), skin: "skin5", colors: ["--shop5-bg-color", "--shop5-box-color", "--shop5-border-color"] }
     ];
 
-    //Iterates though the array and changes color based on the button that has been pressed. 
+    //Iterates though the array and changes color based on the button that has been pressed.
     colorButtons.forEach(button => {
         button.element.addEventListener("click", () => {
             changeColors(button.colors[0], button.colors[1], button.colors[2], button.skin);
@@ -245,3 +251,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
+
+export { incrementCount }
