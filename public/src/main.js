@@ -1,16 +1,14 @@
 import { auth, db } from './firebase-config.js';
 import { calculateWPM } from "./wpm.js";
-import {incrementCount} from "./shop.js";
+import { incrementCount } from "./shop.js";
 import { refreshHeatmap, updateKeyboardColors } from "./heatmap.js";
 
 // Animations commented out for now.
 // import './animations.js';
 
-const RANDOM_QUOTE_API_URL = 'https://api.quotable.io/random';
 const quoteDisplayElement = document.getElementById('quoteDisplay');
 const quoteInputElement = document.getElementById('quoteInput');
 const timerElement = document.getElementById('timer');
-
 const wpmElement = document.getElementById('wpm');
 const accuracyElement = document.getElementById('accuracy');
 
@@ -67,21 +65,28 @@ quoteInputElement.addEventListener('input', () => {
             wpmElement.innerText = ''; // Clear wpm
             accuracyElement.innerText = ''; // Clear accuracy
             renderNewQuote();
-        }, 2500); // Amount of t
+        }, 2500); // Amount of time
     }
 });
 
-function getRandomQuote() {
-    return fetch(RANDOM_QUOTE_API_URL)
-        .then(response => response.json())
-        .then(data => data.content);
+async function getRandomQuote() {
+    try {
+        const response = await fetch('./quotes.json'); // Path to your local JSON file
+        const quotes = await response.json();
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        return quotes[randomIndex]; // Return the entire quote object
+    } catch (error) {
+        console.error('Error fetching quotes:', error);
+        return { quote: "Error fetching quote.", author: "Unknown" }; // Return a default quote object in case of error
+    }
 }
 
 async function renderNewQuote() {
     wordCount = 0;
     incorrectCharacters = 0; // Reset the incorrect character count when rendering a new quote
     keyErrorCounts = {}; // Reset key error counts when rendering a new quote
-    const quote = await getRandomQuote();
+    const quoteObject = await getRandomQuote(); // Get the quote object
+    const quote = quoteObject.quote; // Extract the quote text
     const words = quote.split(' ');
     wordCount = words.length;
     phraseCharacterCount = quote.length;
@@ -121,14 +126,6 @@ function calculateAccuracy() {
     const accuracy = ((correctCharacters / totalCharacters) * 100).toFixed(2);
     accuracyElement.innerText = `Accuracy: ${accuracy}%`;
 }
-
-function calculateAverageWPM(wpmValues) {
-    const totalWPM = wpmValues.reduce((total, wpm) => total + wpm, 0);
-    return totalWPM / wpmValues.length;
-}
-
-//Shuffle
-replayButton.addEventListener('click', renderNewQuote);
 
 renderNewQuote();
 

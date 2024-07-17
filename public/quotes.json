@@ -1,0 +1,978 @@
+[
+    {
+        "author": "Albert Einstein",
+        "quote": "Life is like riding a bicycle. To keep your balance, you must keep moving."
+    },
+    {
+        "author": "Maya Angelou",
+        "quote": "You will face many defeats in life, but never let yourself be defeated."
+    },
+    {
+        "author": "Oscar Wilde",
+        "quote": "Be yourself; everyone else is already taken."
+    },
+    {
+        "author": "Mae West",
+        "quote": "You only live once, but if you do it right, once is enough."
+    },
+    {
+        "author": "Mahatma Gandhi",
+        "quote": "Be the change that you wish to see in the world."
+    },
+    {
+        "author": "Confucius",
+        "quote": "It does not matter how slowly you go as long as you do not stop."
+    },
+    {
+        "author": "Eleanor Roosevelt",
+        "quote": "The future belongs to those who believe in the beauty of their dreams."
+    },
+    {
+        "author": "Dr. Seuss",
+        "quote": "Don't cry because it's over, smile because it happened."
+    },
+    {
+        "author": "Walt Disney",
+        "quote": "The way to get started is to quit talking and begin doing."
+    },
+    {
+        "author": "Nelson Mandela",
+        "quote": "The greatest glory in living lies not in never falling, but in rising every time we fall."
+    },
+    {
+        "author": "Helen Keller",
+        "quote": "The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart."
+    },
+    {
+        "author": "Steve Jobs",
+        "quote": "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work."
+    },
+    {
+        "author": "Mark Twain",
+        "quote": "The secret of getting ahead is getting started."
+    },
+    {
+        "author": "John Lennon",
+        "quote": "Life is what happens when you're busy making other plans."
+    },
+    {
+        "author": "Thomas A. Edison",
+        "quote": "I have not failed. I've just found 10,000 ways that won't work."
+    },
+    {
+        "author": "Friedrich Nietzsche",
+        "quote": "That which does not kill us makes us stronger."
+    },
+    {
+        "author": "Martin Luther King Jr.",
+        "quote": "The time is always right to do what is right."
+    },
+    {
+        "author": "Benjamin Franklin",
+        "quote": "Tell me and I forget. Teach me and I remember. Involve me and I learn."
+    },
+    {
+        "author": "Aristotle",
+        "quote": "It is during our darkest moments that we must focus to see the light."
+    },
+    {
+        "author": "Vincent Van Gogh",
+        "quote": "I dream my painting and I paint my dream."
+    },
+    {
+        "author": "Buddha",
+        "quote": "The mind is everything. What you think you become."
+    },
+    {
+        "author": "C.S. Lewis",
+        "quote": "You are never too old to set another goal or to dream a new dream."
+    },
+    {
+        "author": "J.K. Rowling",
+        "quote": "It is our choices that show what we truly are, far more than our abilities."
+    },
+    {
+        "author": "Confucius",
+        "quote": "Our greatest glory is not in never falling, but in rising every time we fall."
+    },
+    {
+        "author": "Ralph Waldo Emerson",
+        "quote": "Do not go where the path may lead, go instead where there is no path and leave a trail."
+    },
+    {
+        "author": "Leonardo da Vinci",
+        "quote": "Learning never exhausts the mind."
+    },
+    {
+        "author": "Plato",
+        "quote": "The greatest wealth is to live content with little."
+    },
+    {
+        "author": "Socrates",
+        "quote": "The only true wisdom is in knowing you know nothing."
+    },
+    {
+        "author": "Henry David Thoreau",
+        "quote": "What you get by achieving your goals is not as important as what you become by achieving your goals."
+    },
+    {
+        "author": "Albert Camus",
+        "quote": "In the depth of winter, I finally learned that there was in me an invincible summer."
+    },
+    {
+        "author": "George Bernard Shaw",
+        "quote": "Life isn't about finding yourself. Life is about creating yourself."
+    },
+    {
+        "author": "Marcus Aurelius",
+        "quote": "The happiness of your life depends upon the quality of your thoughts."
+    },
+    {
+        "author": "Henry Ford",
+        "quote": "Whether you think you can or you think you can't, you're right."
+    },
+    {
+        "author": "Blaise Pascal",
+        "quote": "The heart has its reasons which reason knows not."
+    },
+    {
+        "author": "William Shakespeare",
+        "quote": "We know what we are, but know not what we may be."
+    },
+    {
+        "author": "Charles Dickens",
+        "quote": "It was the best of times, it was the worst of times."
+    },
+    {
+        "author": "Ernest Hemingway",
+        "quote": "Courage is grace under pressure."
+    },
+    {
+        "author": "Jane Austen",
+        "quote": "There is no charm equal to tenderness of heart."
+    },
+    {
+        "author": "Louisa May Alcott",
+        "quote": "I'm not afraid of storms, for I'm learning how to sail my ship."
+    },
+    {
+        "author": "George Eliot",
+        "quote": "It is never too late to be what you might have been."
+    },
+    {
+        "author": "Herman Melville",
+        "quote": "It is better to fail in originality than to succeed in imitation."
+    },
+    {
+        "author": "Emily Dickinson",
+        "quote": "Hope is the thing with feathers that perches in the soul."
+    },
+    {
+        "author": "Walt Whitman",
+        "quote": "Keep your face always toward the sunshine—and shadows will fall behind you."
+    },
+    {
+        "author": "Ralph Waldo Emerson",
+        "quote": "What lies behind us and what lies before us are tiny matters compared to what lies within us."
+    },
+    {
+        "author": "Henry Wadsworth Longfellow",
+        "quote": "The best thing one can do when it's raining is to let it rain."
+    },
+    {
+        "author": "Edgar Allan Poe",
+        "quote": "All that we see or seem is but a dream within a dream."
+    },
+    {
+        "author": "Robert Frost",
+        "quote": "The best way out is always through."
+    },
+    {
+        "author": "Langston Hughes",
+        "quote": "Hold fast to dreams, for if dreams die, life is a broken-winged bird that cannot fly."
+    },
+    {
+        "author": "Sylvia Plath",
+        "quote": "I am, I am, I am."
+    },
+    {
+        "author": "Maya Angelou",
+        "quote": "You can't use up creativity. The more you use, the more you have."
+    },
+    {
+        "author": "Virginia Woolf",
+        "quote": "One cannot think well, love well, sleep well, if one has not dined well."
+    },
+    {
+        "author": "Emily Brontë",
+        "quote": "Whatever our souls are made of, his and mine are the same."
+    },
+    {
+        "author": "H.P. Lovecraft",
+        "quote": "The oldest and strongest emotion of mankind is fear, and the oldest and strongest kind of fear is fear of the unknown."
+    },
+    {
+        "author": "Franz Kafka",
+        "quote": "A book must be the axe for the frozen sea within us."
+    },
+    {
+        "author": "Leo Tolstoy",
+        "quote": "Everyone thinks of changing the world, but no one thinks of changing himself."
+    },
+    {
+        "author": "Fyodor Dostoevsky",
+        "quote": "The soul is healed by being with children."
+    },
+    {
+        "author": "Anton Chekhov",
+        "quote": "Don't tell me the moon is shining; show me the glint of light on broken glass."
+    },
+    {
+        "author": "Marcel Proust",
+        "quote": "The real voyage of discovery consists not in seeking new landscapes, but in having new eyes."
+    },
+    {
+        "author": "Albert Camus",
+        "quote": "In the midst of winter, I found there was, within me, an invincible summer."
+    },
+    {
+        "author": "Simone de Beauvoir",
+        "quote": "One is not born, but rather becomes, a woman."
+    },
+    {
+        "author": "Jean-Paul Sartre",
+        "quote": "Hell is other people."
+    },
+    {
+        "author": "Hermann Hesse",
+        "quote": "Some of us think holding on makes us strong, but sometimes it is letting go."
+    },
+    {
+        "author": "James Baldwin",
+        "quote": "Not everything that is faced can be changed, but nothing can be changed until it is faced."
+    },
+    {
+        "author": "Toni Morrison",
+        "quote": "If there's a book that you want to read, but it hasn't been written yet, then you must write it."
+    },
+    {
+        "author": "Kurt Vonnegut",
+        "quote": "So it goes."
+    },
+    {
+        "author": "Margaret Atwood",
+        "quote": "War is what happens when language fails."
+    },
+    {
+        "author": "Gabriel García Márquez",
+        "quote": "What matters in life is not what happens to you but what you remember and how you remember it."
+    },
+    {
+        "author": "Isabel Allende",
+        "quote": "There is no death, daughter. People die only when we forget them."
+    },
+    {
+        "author": "Pablo Neruda",
+        "quote": "You can cut all the flowers but you cannot keep spring from coming."
+    },
+    {
+        "author": "Jorge Luis Borges",
+        "quote": "I have always imagined that Paradise will be a kind of library."
+    },
+    {
+        "author": "Haruki Murakami",
+        "quote": "If you only read the books that everyone else is reading, you can only think what everyone else is thinking."
+    },
+    {
+        "author": "Chinua Achebe",
+        "quote": "The world is like a mask dancing. If you want to see it well, you do not stand in one place."
+    },
+    {
+        "author": "Ngũgĩ wa Thiong'o",
+        "quote": "I am what I am because of who we all are."
+    },
+    {
+        "author": "Rumi",
+        "quote": "The wound is the place where the Light enters you."
+    },
+    {
+        "author": "Jalaluddin Rumi",
+        "quote": "Let yourself be silently drawn by the strange pull of what you really love. It will not lead you astray."
+    },
+    {
+        "author": "Rumi",
+        "quote": "Don't grieve. Anything you lose comes round in another form."
+    },
+    {
+        "author": "Rumi",
+        "quote": "You were born with wings, why prefer to crawl through life?"
+    },
+    {
+        "author": "Jalaluddin Rumi",
+        "quote": "When you do things from your soul, you feel a river moving in you, a joy."
+    },
+    {
+        "author": "Rumi",
+        "quote": "Let the beauty of what you love be what you do."
+    },
+    {
+        "author": "Mahatma Gandhi",
+        "quote": "Live as if you were to die tomorrow. Learn as if you were to live forever."
+    },
+    {
+        "author": "Nelson Mandela",
+        "quote": "It always seems impossible until it's done."
+    },
+    {
+        "author": "Eleanor Roosevelt",
+        "quote": "No one can make you feel inferior without your consent."
+    },
+    {
+        "author": "Abraham Lincoln",
+        "quote": "In the end, it's not the years in your life that count. It's the life in your years."
+    },
+    {
+        "author": "Mark Twain",
+        "quote": "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do."
+    },
+    {
+        "author": "William James",
+        "quote": "Act as if what you do makes a difference. It does."
+    },
+    {
+        "author": "Helen Keller",
+        "quote": "The only thing worse than being blind is having sight but no vision."
+    },
+    {
+        "author": "Albert Einstein",
+        "quote": "Try not to become a man of success, but rather become a man of value."
+    },
+    {
+        "author": "Aristotle",
+        "quote": "We are what we repeatedly do. Excellence, then, is not an act, but a habit."
+    },
+    {
+        "author": "Winston Churchill",
+        "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts."
+    },
+    {
+        "author": "Oprah Winfrey",
+        "quote": "The biggest adventure you can take is to live the life of your dreams."
+    },
+    {
+        "author": "Stephen King",
+        "quote": "Get busy living or get busy dying."
+    },
+    {
+        "author": "Bob Marley",
+        "quote": "Love the life you live. Live the life you love."
+    },
+    {
+        "author": "J.R.R. Tolkien",
+        "quote": "Not all those who wander are lost."
+    },
+    {
+        "author": "George Orwell",
+        "quote": "In a time of deceit telling the truth is a revolutionary act."
+    },
+    {
+        "author": "Aldous Huxley",
+        "quote": "Experience is not what happens to you; it's what you do with what happens to you."
+    },
+    {
+        "author": "F. Scott Fitzgerald",
+        "quote": "Never confuse a single defeat with a final defeat."
+    },
+    {
+        "author": "Ernest Hemingway",
+        "quote": "There is no friend as loyal as a book."
+    },
+    {
+        "author": "Virginia Woolf",
+        "quote": "A woman must have money and a room of her own if she is to write fiction."
+    },
+    {
+        "author": "Jane Austen",
+        "quote": "There is no charm equal to tenderness of heart."
+    },
+    {
+        "author": "James Joyce",
+        "quote": "A man of genius makes no mistakes. His errors are volitional and are the portals of discovery."
+    },
+    {
+        "author": "Marcel Proust",
+        "quote": "Let us be grateful to people who make us happy, they are the charming gardeners who make our souls blossom."
+    },
+    {
+        "author": "Haruki Murakami",
+        "quote": "If you remember me, then I don't care if everyone else forgets."
+    },
+    {
+        "author": "Kurt Vonnegut",
+        "quote": "We are what we pretend to be, so we must be careful about what we pretend to be."
+    },
+    {
+        "author": "Margaret Atwood",
+        "quote": "In the end, we'll all become stories."
+    },
+    {
+        "author": "Gabriel García Márquez",
+        "quote": "It is not true that people stop pursuing dreams because they grow old, they grow old because they stop pursuing dreams."
+    },
+    {
+        "author": "Isabel Allende",
+        "quote": "We only have what we give."
+    },
+    {
+        "author": "Pablo Neruda",
+        "quote": "To feel the love of people whom we love is a fire that feeds our life."
+    },
+    {
+        "author": "Jorge Luis Borges",
+        "quote": "I cannot sleep unless I am surrounded by books."
+    },
+    {
+        "author": "George Orwell",
+        "quote": "The best books... are those that tell you what you know already."
+    },
+    {
+        "author": "Leo Tolstoy",
+        "quote": "If you want to be happy, be."
+    },
+    {
+        "author": "Fyodor Dostoevsky",
+        "quote": "The soul is healed by being with children."
+    },
+    {
+        "author": "Anton Chekhov",
+        "quote": "Don't tell me the moon is shining; show me the glint of light on broken glass."
+    },
+    {
+        "author": "Albert Camus",
+        "quote": "In the midst of winter, I found there was, within me, an invincible summer."
+    },
+    {
+        "author": "Simone de Beauvoir",
+        "quote": "One is not born, but rather becomes, a woman."
+    },
+    {
+        "author": "Jean-Paul Sartre",
+        "quote": "Hell is other people."
+    },
+    {
+        "author": "Hermann Hesse",
+        "quote": "Some of us think holding on makes us strong, but sometimes it is letting go."
+    },
+    {
+        "author": "James Baldwin",
+        "quote": "Not everything that is faced can be changed, but nothing can be changed until it is faced."
+    },
+    {
+        "author": "Toni Morrison",
+        "quote": "If there's a book that you want to read, but it hasn't been written yet, then you must write it."
+    },
+    {
+        "author": "Chinua Achebe",
+        "quote": "The world is like a mask dancing. If you want to see it well, you do not stand in one place."
+    },
+    {
+        "author": "Ngũgĩ wa Thiong'o",
+        "quote": "I am what I am because of who we all are."
+    },
+    {
+        "author": "H.P. Lovecraft",
+        "quote": "The oldest and strongest emotion of mankind is fear, and the oldest and strongest kind of fear is fear of the unknown."
+    },
+    {
+        "author": "Franz Kafka",
+        "quote": "A book must be the axe for the frozen sea within us."
+    },
+    {
+        "author": "Emily Dickinson",
+        "quote": "Hope is the thing with feathers that perches in the soul."
+    },
+    {
+        "author": "Walt Whitman",
+        "quote": "Keep your face always toward the sunshine—and shadows will fall behind you."
+    },
+    {
+        "author": "Ralph Waldo Emerson",
+        "quote": "What lies behind us and what lies before us are tiny matters compared to what lies within us."
+    },
+    {
+        "author": "Henry Wadsworth Longfellow",
+        "quote": "The best thing one can do when it's raining is to let it rain."
+    },
+    {
+        "author": "Edgar Allan Poe",
+        "quote": "All that we see or seem is but a dream within a dream."
+    },
+    {
+        "author": "Robert Frost",
+        "quote": "The best way out is always through."
+    },
+    {
+        "author": "Langston Hughes",
+        "quote": "Hold fast to dreams, for if dreams die, life is a broken-winged bird that cannot fly."
+    },
+    {
+        "author": "Sylvia Plath",
+        "quote": "I am, I am, I am."
+    },
+    {
+        "author": "Maya Angelou",
+        "quote": "You can't use up creativity. The more you use, the more you have."
+    },
+    {
+        "author": "Virginia Woolf",
+        "quote": "One cannot think well, love well, sleep well, if one has not dined well."
+    },
+    {
+        "author": "Emily Brontë",
+        "quote": "Whatever our souls are made of, his and mine are the same."
+    },
+    {
+        "author": "H.P. Lovecraft",
+        "quote": "The oldest and strongest emotion of mankind is fear, and the oldest and strongest kind of fear is fear of the unknown."
+    },
+    {
+        "author": "Franz Kafka",
+        "quote": "A book must be the axe for the frozen sea within us."
+    },
+    {
+        "author": "Leo Tolstoy",
+        "quote": "Everyone thinks of changing the world, but no one thinks of changing himself."
+    },
+    {
+        "author": "Fyodor Dostoevsky",
+        "quote": "The soul is healed by being with children."
+    },
+    {
+        "author": "Anton Chekhov",
+        "quote": "Don't tell me the moon is shining; show me the glint of light on broken glass."
+    },
+    {
+        "author": "Marcel Proust",
+        "quote": "The real voyage of discovery consists not in seeking new landscapes, but in having new eyes."
+    },
+    {
+        "author": "Albert Camus",
+        "quote": "In the midst of winter, I found there was, within me, an invincible summer."
+    },
+    {
+        "author": "Simone de Beauvoir",
+        "quote": "One is not born, but rather becomes, a woman."
+    },
+    {
+        "author": "Jean-Paul Sartre",
+        "quote": "Hell is other people."
+    },
+    {
+        "author": "Hermann Hesse",
+        "quote": "Some of us think holding on makes us strong, but sometimes it is letting go."
+    },
+    {
+        "author": "James Baldwin",
+        "quote": "Not everything that is faced can be changed, but nothing can be changed until it is faced."
+    },
+    {
+        "author": "Toni Morrison",
+        "quote": "If there's a book that you want to read, but it hasn't been written yet, then you must write it."
+    },
+    {
+        "author": "Kurt Vonnegut",
+        "quote": "So it goes."
+    },
+    {
+        "author": "Margaret Atwood",
+        "quote": "War is what happens when language fails."
+    },
+    {
+        "author": "Gabriel García Márquez",
+        "quote": "What matters in life is not what happens to you but what you remember and how you remember it."
+    },
+    {
+        "author": "Isabel Allende",
+        "quote": "There is no death, daughter. People die only when we forget them."
+    },
+    {
+        "author": "Pablo Neruda",
+        "quote": "You can cut all the flowers but you cannot keep spring from coming."
+    },
+    {
+        "author": "Jorge Luis Borges",
+        "quote": "I have always imagined that Paradise will be a kind of library."
+    },
+    {
+        "author": "Haruki Murakami",
+        "quote": "If you only read the books that everyone else is reading, you can only think what everyone else is thinking."
+    },
+    {
+        "author": "Chinua Achebe",
+        "quote": "The world is like a mask dancing. If you want to see it well, you do not stand in one place."
+    },
+    {
+        "author": "Ngũgĩ wa Thiong'o",
+        "quote": "I am what I am because of who we all are."
+    },
+    {
+        "author": "Rumi",
+        "quote": "The wound is the place where the Light enters you."
+    },
+    {
+        "author": "Jalaluddin Rumi",
+        "quote": "Let yourself be silently drawn by the strange pull of what you really love. It will not lead you astray."
+    },
+    {
+        "author": "Rumi",
+        "quote": "Don't grieve. Anything you lose comes round in another form."
+    },
+    {
+        "author": "Rumi",
+        "quote": "You were born with wings, why prefer to crawl through life?"
+    },
+    {
+        "author": "Jalaluddin Rumi",
+        "quote": "When you do things from your soul, you feel a river moving in you, a joy."
+    },
+    {
+        "author": "Rumi",
+        "quote": "Let the beauty of what you love be what you do."
+    },
+    {
+        "author": "Mahatma Gandhi",
+        "quote": "Live as if you were to die tomorrow. Learn as if you were to live forever."
+    },
+    {
+        "author": "Nelson Mandela",
+        "quote": "It always seems impossible until it's done."
+    },
+    {
+        "author": "Eleanor Roosevelt",
+        "quote": "No one can make you feel inferior without your consent."
+    },
+    {
+        "author": "Abraham Lincoln",
+        "quote": "In the end, it's not the years in your life that count. It's the life in your years."
+    },
+    {
+        "author": "Mark Twain",
+        "quote": "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do."
+    },
+    {
+        "author": "William James",
+        "quote": "Act as if what you do makes a difference. It does."
+    },
+    {
+        "author": "Helen Keller",
+        "quote": "The only thing worse than being blind is having sight but no vision."
+    },
+    {
+        "author": "Albert Einstein",
+        "quote": "Try not to become a man of success, but rather become a man of value."
+    },
+    {
+        "author": "Aristotle",
+        "quote": "We are what we repeatedly do. Excellence, then, is not an act, but a habit."
+    },
+    {
+        "author": "Winston Churchill",
+        "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts."
+    },
+    {
+        "author": "Oprah Winfrey",
+        "quote": "The biggest adventure you can take is to live the life of your dreams."
+    },
+    {
+        "author": "Stephen King",
+        "quote": "Get busy living or get busy dying."
+    },
+    {
+        "author": "Bob Marley",
+        "quote": "Love the life you live. Live the life you love."
+    },
+    {
+        "author": "J.R.R. Tolkien",
+        "quote": "Not all those who wander are lost."
+    },
+    {
+        "author": "George Orwell",
+        "quote": "In a time of deceit telling the truth is a revolutionary act."
+    },
+    {
+        "author": "Aldous Huxley",
+        "quote": "Experience is not what happens to you; it's what you do with what happens to you."
+    },
+    {
+        "author": "F. Scott Fitzgerald",
+        "quote": "Never confuse a single defeat with a final defeat."
+    },
+    {
+        "author": "Ernest Hemingway",
+        "quote": "There is no friend as loyal as a book."
+    },
+    {
+        "author": "Virginia Woolf",
+        "quote": "A woman must have money and a room of her own if she is to write fiction."
+    },
+    {
+        "author": "Jane Austen",
+        "quote": "There is no charm equal to tenderness of heart."
+    },
+    {
+        "author": "James Joyce",
+        "quote": "A man of genius makes no mistakes. His errors are volitional and are the portals of discovery."
+    },
+    {
+        "author": "Marcel Proust",
+        "quote": "Let us be grateful to people who make us happy, they are the charming gardeners who make our souls blossom."
+    },
+    {
+        "author": "Haruki Murakami",
+        "quote": "If you remember me, then I don't care if everyone else forgets."
+    },
+    {
+        "author": "Kurt Vonnegut",
+        "quote": "We are what we pretend to be, so we must be careful about what we pretend to be."
+    },
+    {
+        "author": "Margaret Atwood",
+        "quote": "In the end, we'll all become stories."
+    },
+    {
+        "author": "Gabriel García Márquez",
+        "quote": "It is not true that people stop pursuing dreams because they grow old, they grow old because they stop pursuing dreams."
+    },
+    {
+        "author": "Isabel Allende",
+        "quote": "We only have what we give."
+    },
+    {
+        "author": "Pablo Neruda",
+        "quote": "To feel the love of people whom we love is a fire that feeds our life."
+    },
+    {
+        "author": "Jorge Luis Borges",
+        "quote": "I cannot sleep unless I am surrounded by books."
+    },
+    {
+        "author": "George Orwell",
+        "quote": "The best books... are those that tell you what you know already."
+    },
+    {
+        "author": "Leo Tolstoy",
+        "quote": "If you want to be happy, be."
+    },
+    {
+        "author": "Fyodor Dostoevsky",
+        "quote": "The soul is healed by being with children."
+    },
+    {
+        "author": "Anton Chekhov",
+        "quote": "Don't tell me the moon is shining; show me the glint of light on broken glass."
+    },
+    {
+        "author": "Albert Camus",
+        "quote": "In the midst of winter, I found there was, within me, an invincible summer."
+    },
+    {
+        "author": "Simone de Beauvoir",
+        "quote": "One is not born, but rather becomes, a woman."
+    },
+    {
+        "author": "Jean-Paul Sartre",
+        "quote": "Hell is other people."
+    },
+    {
+        "author": "Hermann Hesse",
+        "quote": "Some of us think holding on makes us strong, but sometimes it is letting go."
+    },
+    {
+        "author": "James Baldwin",
+        "quote": "Not everything that is faced can be changed, but nothing can be changed until it is faced."
+    },
+    {
+        "author": "Toni Morrison",
+        "quote": "If there's a book that you want to read, but it hasn't been written yet, then you must write it."
+    },
+    {
+        "author": "Kurt Vonnegut",
+        "quote": "So it goes."
+    },
+    {
+        "author": "Margaret Atwood",
+        "quote": "War is what happens when language fails."
+    },
+    {
+        "author": "Gabriel García Márquez",
+        "quote": "What matters in life is not what happens to you but what you remember and how you remember it."
+    },
+    {
+        "author": "Isabel Allende",
+        "quote": "There is no death, daughter. People die only when we forget them."
+    },
+    {
+        "author": "Pablo Neruda",
+        "quote": "You can cut all the flowers but you cannot keep spring from coming."
+    },
+    {
+        "author": "Jorge Luis Borges",
+        "quote": "I have always imagined that Paradise will be a kind of library."
+    },
+    {
+        "author": "Haruki Murakami",
+        "quote": "If you only read the books that everyone else is reading, you can only think what everyone else is thinking."
+    },
+    {
+        "author": "Chinua Achebe",
+        "quote": "The world is like a mask dancing. If you want to see it well, you do not stand in one place."
+    },
+    {
+        "author": "Ngũgĩ wa Thiong'o",
+        "quote": "I am what I am because of who we all are."
+    },
+    {
+        "author": "Rumi",
+        "quote": "The wound is the place where the Light enters you."
+    },
+    {
+        "author": "Jalaluddin Rumi",
+        "quote": "Let yourself be silently drawn by the strange pull of what you really love. It will not lead you astray."
+    },
+    {
+        "author": "Rumi",
+        "quote": "Don't grieve. Anything you lose comes round in another form."
+    },
+    {
+        "author": "Rumi",
+        "quote": "You were born with wings, why prefer to crawl through life?"
+    },
+    {
+        "author": "Jalaluddin Rumi",
+        "quote": "When you do things from your soul, you feel a river moving in you, a joy."
+    },
+    {
+        "author": "Rumi",
+        "quote": "Let the beauty of what you love be what you do."
+    },
+    {
+        "author": "Mahatma Gandhi",
+        "quote": "Live as if you were to die tomorrow. Learn as if you were to live forever."
+    },
+    {
+        "author": "Nelson Mandela",
+        "quote": "It always seems impossible until it's done."
+    },
+    {
+        "author": "Eleanor Roosevelt",
+        "quote": "No one can make you feel inferior without your consent."
+    },
+    {
+        "author": "Abraham Lincoln",
+        "quote": "In the end, it's not the years in your life that count. It's the life in your years."
+    },
+    {
+        "author": "Mark Twain",
+        "quote": "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do."
+    },
+    {
+        "author": "William James",
+        "quote": "Act as if what you do makes a difference. It does."
+    },
+    {
+        "author": "Helen Keller",
+        "quote": "The only thing worse than being blind is having sight but no vision."
+    },
+    {
+        "author": "Albert Einstein",
+        "quote": "Try not to become a man of success, but rather become a man of value."
+    },
+    {
+        "author": "Aristotle",
+        "quote": "We are what we repeatedly do. Excellence, then, is not an act, but a habit."
+    },
+    {
+        "author": "Winston Churchill",
+        "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts."
+    },
+    {
+        "author": "Oprah Winfrey",
+        "quote": "The biggest adventure you can take is to live the life of your dreams."
+    },
+    {
+        "author": "Stephen King",
+        "quote": "Get busy living or get busy dying."
+    },
+    {
+        "author": "Bob Marley",
+        "quote": "Love the life you live. Live the life you love."
+    },
+    {
+        "author": "J.R.R. Tolkien",
+        "quote": "Not all those who wander are lost."
+    },
+    {
+        "author": "George Orwell",
+        "quote": "In a time of deceit telling the truth is a revolutionary act."
+    },
+    {
+        "author": "Aldous Huxley",
+        "quote": "Experience is not what happens to you; it's what you do with what happens to you."
+    },
+    {
+        "author": "F. Scott Fitzgerald",
+        "quote": "Never confuse a single defeat with a final defeat."
+    },
+    {
+        "author": "Ernest Hemingway",
+        "quote": "There is no friend as loyal as a book."
+    },
+    {
+        "author": "Virginia Woolf",
+        "quote": "A woman must have money and a room of her own if she is to write fiction."
+    },
+    {
+        "author": "Jane Austen",
+        "quote": "There is no charm equal to tenderness of heart."
+    },
+    {
+        "author": "James Joyce",
+        "quote": "A man of genius makes no mistakes. His errors are volitional and are the portals of discovery."
+    },
+    {
+        "author": "Marcel Proust",
+        "quote": "Let us be grateful to people who make us happy, they are the charming gardeners who make our souls blossom."
+    },
+    {
+        "author": "Haruki Murakami",
+        "quote": "If you remember me, then I don't care if everyone else forgets."
+    },
+    {
+        "author": "Kurt Vonnegut",
+        "quote": "We are what we pretend to be, so we must be careful about what we pretend to be."
+    },
+    {
+        "author": "Margaret Atwood",
+        "quote": "In the end, we'll all become stories."
+    },
+    {
+        "author": "Gabriel García Márquez",
+        "quote": "It is not true that people stop pursuing dreams because they grow old, they grow old because they stop pursuing dreams."
+    },
+    {
+        "author": "Isabel Allende",
+        "quote": "We only have what we give."
+    },
+    {
+        "author": "Pablo Neruda",
+        "quote": "To feel the love of people whom we love is a fire that feeds our life."
+    },
+    {
+        "author": "Jorge Luis Borges",
+        "quote": "I cannot sleep unless I am surrounded by books."
+    },
+    {
+        "author": "George Orwell",
+        "quote": "The best books... are those that tell you what you know already."
+    }
+]

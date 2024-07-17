@@ -47,6 +47,12 @@ async function incrementCount() {
     }
 }
 
+// Display count on login
+async function displayUserCount(user) {
+    const currentCount = await fetchUserCount(user);
+    document.getElementById("count").textContent = currentCount;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     // Save skin to user's Firestore profile
     async function saveSkinToProfile(skin) {
@@ -139,7 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    onAuthStateChanged(auth, initializeDropdown);
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            await initializeDropdown();
+            await displayUserCount(user); // Display count when user logs in
+        }
+    });
 
     // Buy Skins
     const skins = [
